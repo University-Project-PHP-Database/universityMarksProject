@@ -34,3 +34,13 @@ table {
 tr {
     text-align: center;
 }
+.positioning {
+    margin: 40px;
+    color: blue;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+a {
+    margin-right: 40px;
+}
