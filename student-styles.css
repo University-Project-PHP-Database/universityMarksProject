@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+}
+
+#student-name {
+    float: right;
+    color: black;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#setting {
+    width: 50;
+    height: 50;
+    padding-right: 20px;
+    padding-top: 4px;
+}
+
+nav {
+    background-color: rgb(73, 73, 250);
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+    font-family: Arial, sans-serif;
+
+}
+table {
+    margin-top: 100px;
+    width: 100%;
+    background-color: rgb(222, 214, 214);
+    
+}
+tr {
+    text-align: center;
+}
