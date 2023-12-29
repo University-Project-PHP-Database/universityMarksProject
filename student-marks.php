@@ -21,12 +21,14 @@
     <header>
         <div>
             <nav>
-                <div id="setting"><a href="./student-setting.php"><img src="./setting-icon.png" width="25"
-                            height="25"></a></div>
+                <div id="icons">
+                    <a class="setting-icon" href="./student-setting.php"><img src="./setting-icon.png" width="27" height="27"></a>
+                    <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                </div>
+
                 <div id="student-name">Hello, <?=$stud_name?></div>
             </nav>
         </div>
-
     </header>
     <main>
         <table border=1>

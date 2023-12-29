@@ -7,13 +7,14 @@ body {
     color: black;
     padding: 5px;
     font-weight: bold;
+    margin-top: 6px;
 }
 
-#setting {
+#icons {
+    display:flex;
     width: 50;
     height: 50;
-    padding-right: 20px;
-    padding-top: 4px;
+    align-items: center; /* Center vertically within the flex container */
 }
 
 nav {
@@ -34,7 +35,8 @@ table {
 tr {
     text-align: center;
 }
-.positioning {
+
+.positioning-body {
     margin: 40px;
     color: blue;
     text-decoration: none;
@@ -43,4 +45,13 @@ tr {
 
 a {
     margin-right: 40px;
+}
+
+.profile-icon {
+    margin: 0px;
+    padding-left: 7px;
+}
+.setting-icon {
+    margin: 0;
+    padding-top: 6px;
 }
