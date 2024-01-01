@@ -39,6 +39,15 @@
     )";
     mysqli_query($connect, $create_course_tbl);
 
+
+/*==============================================================*/
+/* Table: ALTER Course                                                */
+/*==============================================================*/
+
+    $alter_course_tbl = "ALTER table Course add  obtainedBy int ";
+    mysqli_query($connect, $alter_course_tbl);
+
+
 /*==============================================================*/
 /* Table: Exam                                                  */
 /*==============================================================*/                  
@@ -63,6 +72,17 @@
         primary key (sid)
     )";
     mysqli_query($connect, $create_student_tbl);
+
+/*==============================================================*/
+/* Table: ALTER Student                                               */
+/*==============================================================*/
+    $alter_student_tbl = "ALTER TABLE Student 
+                    add acquiredCredits int, 
+                    add obtainedCourses int;
+                        ";
+
+    mysqli_query($connect, $alter_student_tbl);
+
 
 /*==============================================================*/
 /* Table: MarkRegister                                          */
@@ -90,6 +110,7 @@
         foreign key (course)  references Course (cid)
     )";
     mysqli_query($connect, $create_studentcourses_tbl);
+    
 
 /*==============================================================*/
 /* Table: LoginDetails                                          */
@@ -114,8 +135,8 @@
 
 
     $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB')";
-    $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`) values ('I207E', 'm001', 'I207E', 'database', 72, 4), ('I207F', 'm001', 'I207F', 'database', 72, 4), ('I211E','m001', 'I211E', 'A. database', 60, 5), ('I211F','m001', 'I211F', 'A. database', 60, 5), ('I215F','z000', 'I215F', 'Op System', 60, 6)";
-    $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111'), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211'), ('103', 'Lina', '12/14/81', 'Birut', '07542312')";
+    $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0)";
+    $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0)";
     $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023')";
     $insert_markregister = "INSERT into MarkRegister values ( '201', 'I207E', '2223s1f',  57), ( '103', 'I207E', '2223s1f',  40), ( '201', 'I207F', '2223s1f', 60), ( '201', 'I215F', '2223s1f', 35), ( '103', 'I215F', '2223s1f', 65), ( '200', 'I207F', '2223s1f', 62)";
     $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123')";
@@ -124,19 +145,16 @@
     
     
     mysqli_query($connect, $insert_teacher) or die("Could not add data");
-    mysqli_query($connect, $insert_course);
-    mysqli_query($connect, $insert_student);
-    mysqli_query($connect, $insert_exam);
-    mysqli_query($connect, $insert_markregister);
-    mysqli_query($connect, $insert_studentlogin);
-    mysqli_query($connect, $insert_doctorslogin);
-    mysqli_query($connect, $insert_studentcourses);
+    mysqli_query($connect, $insert_course) or die("Could not add data");
+    mysqli_query($connect, $insert_student) or die("Could not add data");
+    mysqli_query($connect, $insert_exam) or die("Could not add data");
+    mysqli_query($connect, $insert_markregister) or die("Could not add data");
+    mysqli_query($connect, $insert_studentlogin) or die("Could not add data");
+    mysqli_query($connect, $insert_doctorslogin) or die("Could not add data");
+    mysqli_query($connect, $insert_studentcourses) or die("Could not add data");
     mysqli_close($connect);
 
 
-
-     /* Query to get name after login */
-
-    // $get_name_dr = "SELECT tname FROM Teacher, LoginDoctors WHERE logindoctors.doctor = doctors.tid";
-
+    echo "<h1>Congradualations! Your Database is created successfully..</h1>";
+    
 ?>
