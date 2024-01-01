@@ -20,7 +20,7 @@
         // Then there is entry with that user in table `loginstudents`\\
         if(mysqli_num_rows($result) > 0) {
             // Get student name that have this email\\
-            $get_name_dr = "SELECT tname, tid FROM teacher, logindoctors WHERE logindoctors.doctor = teacher.tid AND `email` = '$email'";
+            $get_name_dr = "SELECT tname, tid, type FROM teacher, logindoctors WHERE logindoctors.doctor = teacher.tid AND `email` = '$email'";
             $result = $connect->query($get_name_dr);
             mysqli_close($connect);
 
@@ -33,15 +33,17 @@
 // set cookie for tid (much important) = primary key
             $tid = "teacher_tid";
             $value = $row[1];
-            $time = time() + (60*60*24);
             setcookie($tid, $value, $time);
-            header('Location: teacher-home-page.php');
+            if($row[2] == 'D'){
+                header('Location: teacher-home-page.php');
+            } else if($row[2] == 'A') {
+                header('Location: admin-home-page.php');
+            }
         } else {
             echo "Invalid email or password";
         }
         mysqli_close($connect);
 
-        // Save email in cookie \\
         
     }
 

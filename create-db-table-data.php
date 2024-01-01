@@ -128,19 +128,20 @@
         doctor              char(5)                 not null,
         email              char(50)              not null,
         password               char(50)              not null,
+        type               char(5)              not null,
         primary key (email),
         foreign key (doctor) references Teacher(tid)
     )";
     mysqli_query($connect, $create_logindoctors_tbl);
 
 
-    $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB')";
+    $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin')";
     $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0)";
     $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0)";
     $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023')";
     $insert_markregister = "INSERT into MarkRegister values ( '201', 'I207E', '2223s1f',  57), ( '103', 'I207E', '2223s1f',  40), ( '201', 'I207F', '2223s1f', 60), ( '201', 'I215F', '2223s1f', 35), ( '103', 'I215F', '2223s1f', 65), ( '200', 'I207F', '2223s1f', 62)";
     $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123')";
-    $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123'), ('z000', 'zein@st.edu.lb', 'zein123')";
+    $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`, `type`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A')";
     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I211F')";
     
     

@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="student-styles.css">
+    <link rel="stylesheet" href="sub-styles.css">
     <title>Student's Page</title>
 </head>
 
@@ -26,7 +26,7 @@
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
                 </div>
 
-                <div id="student-name">Hello, <?=$stud_name?></div>
+                <div class="person-name">Hello, <?=$stud_name?></div>
             </nav>
         </div>
     </header>
