@@ -153,7 +153,43 @@
     mysqli_query($connect, $insert_studentlogin) or die("Could not add data");
     mysqli_query($connect, $insert_doctorslogin) or die("Could not add data");
     mysqli_query($connect, $insert_studentcourses) or die("Could not add data");
+
+    
+// Add new column deadline(calculated automatically using a trigger) in datetime
+// Add new column duration (entered by admin) in days
+
+    $query = "ALTER TABLE Exam ADD deadline datetime NULL";
+    mysqli_query($connect, $query);
+    $query = "ALTER table Exam add duration int";
+    mysqli_query($connect, $query);
+
+
+
+
+// TRIGGER to calculate deadline and save it in Exam table
+    $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON Exam
+        FOR EACH ROW
+        BEGIN
+            DECLARE start_date DATE;
+            DECLARE new_deadline DATE;
+            DECLARE new_duration INT;
+
+            SET start_date = NEW.fromdate;
+            SET new_duration = NEW.duration;
+
+            SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
+        END";
+    mysqli_query($connect, $query);
+    //data to test the trigger
+    $insert_exam = "INSERT INTO Exam (xid, xlabel, fromdate, todate, deadline, duration) 
+    VALUES ('2223s11f', 'FinalExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
+
+    mysqli_query($connect, $insert_exam);
+
     mysqli_close($connect);
+
+
+
 
 
     echo "<h1>Congradualations! Your Database is created successfully..</h1>";
