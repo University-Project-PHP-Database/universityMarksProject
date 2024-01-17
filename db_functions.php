@@ -32,18 +32,19 @@
         
     }
 
-    function delete($tableName, $eid){
+    function delete($tableName, $id ,$eid){
 
         $connect = database_connection();
-        $query = "delete from '$tableName' where product_id='$eid'";
+        $query = "delete from $tableName where $id = $eid";
+        echo $query."<br>";
         $result = mysqli_query($connect, $query) or die("Query failed: " . mysqli_error($connect));
         
         mysqli_close($connect);
     }
 
-    function search($tableName, $id, $eid){
+    function search($tableName, $eid){
         $connect = database_connection();
-        $query = "SELECT * from '$tableName' where '".$id."'='".$eid."'"; 
+        $query = "SELECT * from '$tableName' where sid.='".$eid."'"; 
         $result = mysqli_query($connect, $query) or die("Query failed: " . mysqli_error($connect));
 
         mysqli_close($connect);

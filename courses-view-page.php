@@ -11,36 +11,36 @@ $con = database_connection();
     <body>
         <div class="form">
             <p><a href="admin-home-page.php">Home</a> 
-|               <a href="student-insert-page.php">Insert New Student</a> 
+|               <a href="course-insert-page.php">Insert New Student</a> 
 |               <a href="admin-home-page.php">Back</a></p>
-            <h2>Student Records</h2>
+            <h2>Courses Records</h2>
         <table width="100%" border="1" style="border-collapse:collapse;">
         <thead>
         <tr>
-        <th><strong>Student ID</strong></th>
-        <th><strong>Name</strong></th>
-        <th><strong>Birth date</strong></th>
-        <th><strong>Address</strong></th>
-        <th><strong>Phone number</strong></th>
+        <th><strong>Course code</strong></th>
+        <th><strong>Course name</strong></th>
+        <th><strong>Teacher name</strong></th>
+        <th><strong>Hours</strong></th>
+        <th><strong>Credits</strong></th>
         <th><strong>Edit</strong></th>
         <th><strong>Delete</strong></th>
         </tr>
         </thead>
         <tbody>
         <?php
-            $sel_query="Select * from student ORDER BY sid asc;";
+            $sel_query="Select * from course ORDER BY cid asc;";
             $result = mysqli_query($con,$sel_query);
             while($row = mysqli_fetch_assoc($result)) { ?>
-                <tr><td align="center"><?php echo $row["sid"] ?></td>
-                <td align="center"><?php echo $row["sname"]; ?></td>
-                <td align="center"><?php echo $row["bdate"]; ?></td>
-                <td align="center"><?php echo $row["address"]; ?></td>
-                <td align="center"><?php echo $row["phone"]; ?></td>
+                <tr><td align="center"><?php echo $row["cid"] ?></td>
+                <td align="center"><?php echo $row["cname"]; ?></td>
+                <td align="center"><?php echo $row["teacher"]; ?></td>
+                <td align="center"><?php echo $row["hours"]; ?></td>
+                <td align="center"><?php echo $row["credits"]; ?></td>
                 <td align="center">
-                <a href="edit-student.php?sid=<?php echo $row["sid"]; ?>">Edit</a>
+                <a href="edit-course.php?cid=<?php echo $row["cid"]; ?>">Edit</a>
                 </td>
                 <td align="center">
-                <a href="delete-student.php?sid=<?php echo $row["sid"]; ?>">Delete</a>
+                <a href="delete-course.php?cid=<?php echo $row["cid"]; ?>">Delete</a>
                 </td>
                 </tr>
             <?php } 
