@@ -11,7 +11,7 @@ $con = database_connection();
     <body>
         <div class="form">
             <p><a href="admin-home-page.php">Home</a> 
-|               <a href="insert-student.php">Insert New Teacher</a> 
+|               <a href="teacher-insert-page.php">Insert New Teacher</a> 
 |               <a href="logout.php">Logout</a></p>
             <h2>View Records</h2>
         <table width="100%" border="1" style="border-collapse:collapse;">
@@ -37,10 +37,10 @@ $con = database_connection();
                 <td align="center"><?php echo $row["phone"]; ?></td>
                 <td align="center"><?php echo $row["speciality"]; ?></td>
                 <td align="center">
-                <a href="edit-teacher.php?id=<?php echo $row["tid"]; ?>">Edit</a>
+                <a href="edit-teacher.php?tid=<?php echo $row["tid"]; ?>">Edit</a>
                 </td>
                 <td align="center">
-                <a href="delete-teacher.php?id=<?php echo $row["tid"]; ?>">Delete</a>
+                <a href="delete-teacher.php?tid=<?php echo $row["tid"]; ?>">Delete</a>
                 </td>
                 </tr>
             <?php } 

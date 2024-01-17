@@ -27,7 +27,7 @@ if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth'])
     <body>
         <div class="form">
         <p><a href="admin-home-page.php">home</a> 
-        | <a href="student-view-page.php.php">View Records</a> 
+        | <a href="student-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
             <div>
                 <h1>Insert New student</h1>
