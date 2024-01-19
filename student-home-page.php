@@ -23,7 +23,6 @@
                 <div id="icons">
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
                     <div class="person-name">Hello, <?=$stud_name?></div>
-                    <p class="logout"><a href="logout.php">logout</a></p>
                 </div>
 
                
@@ -35,6 +34,8 @@
         <div class="positioning-body">
             <a href="./student-marks.php">View marks</a>
             <a href="./student-courses.php">View Courses</a>
+            <a href="logout.php">Logout</a>
+
         </div>
         
     </main>

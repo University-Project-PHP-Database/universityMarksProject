@@ -22,8 +22,9 @@ nav {
     color: #fff;
     padding: 10px;
     display: flex;
-    justify-content: end;
     font-family: Arial, sans-serif;
+    justify-content: end;
+
 
 }
 table {
@@ -54,10 +55,7 @@ a {
     margin: 0px;
     padding-left: 7px;
 }
-.setting-icon {
-    margin: 0;
-    padding-top: 6px;
-}
+
 form {
     max-width: 400px;
     margin: 20px auto;
@@ -106,6 +104,7 @@ h2 {
     margin: 0;
 }
 .logout {
-    float:left;
     color: black;
+    text-decoration: none;
+    border: 2px solid black;
 }
