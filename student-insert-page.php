@@ -4,27 +4,39 @@ $con = database_connection();
 $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
 $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
+
 $status = "";
 if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth']) && isset($_POST['address']) && isset($_POST['phone']) && isset($_POST['email']) && isset($_POST['password'])){
-    $id = $_POST['sid'];
-    $name =$_POST['name'];
-    $trn_date = date("Y-m-d ",strtotime($_POST['dateofbirth']));
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $ins_query="insert into student
-    (`sid`,`sname`,`bdate`,`address`,`phone`)values
-    ('$id','$name','$trn_date','$address','$phone')";
-    mysqli_query($con,$ins_query)
-    or die(mysqli_error($con));
-    $ins_query2="insert into loginstudents (`student`, `email`, `password`) values
-     ('$id', '$email', '$password')";
-     mysqli_query($con,$ins_query2) or die(mysqli_error($con));
-    $status = "New Record Inserted Successfully.
-    </br></br><a href='student-view-page.php'>View Inserted student</a>";
-    mysqli_close($con);
-}
+    try {
+        mysqli_begin_transaction($con);
+        $id = $_POST['sid'];
+        $name =$_POST['name'];
+        $trn_date = date("Y-m-d ",strtotime($_POST['dateofbirth']));
+        $address = $_POST['address'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $ins_query="insert into student
+        (`sid`,`sname`,`bdate`,`address`,`phone`)values
+        ('$id','$name','$trn_date','$address','$phone')";
+        mysqli_query($con,$ins_query)
+        or die(mysqli_error($con));
+        $ins_query2="insert into loginstudents (`student`, `email`, `password`) values
+         ('$id', '$email', '$password')";
+         mysqli_query($con,$ins_query2) or die(mysqli_error($con));
+        $status = "New Record Inserted Successfully.
+        </br></br><a href='student-view-page.php'>View Inserted student</a>";
+        mysqli_commit($con);
+        mysqli_close($con);
+    } catch (Exception $e) {
+        mysqli_rollback($con);
+        $status = 'Error ' . $e->getMessage() . "<br />";
+        // return [False, $e->getMessage()];
+
+    }
+    // return [True, 'Student Successfully inserted'];
+ }
+
 ?>
 
 <!DOCTYPE html>
@@ -77,3 +89,4 @@ if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth'])
         </div>
     </body>
 </html>
+
