@@ -1,19 +1,42 @@
 <?php
 include("db_functions.php");
+$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
+$admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
+
 $id=$_REQUEST['cid'];
 $con = database_connection();
 $query = "SELECT * from course where cid ='".$id."'"; 
 $result = mysqli_query($con, $query) or die ( mysqli_error($con));
 $row = mysqli_fetch_assoc($result);
 ?>
+
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Update Course</title>
-    </head>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sub-styles.css">
+    <title>Update Course Page</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <nav>
+                <div id="icons">
+                    <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                </div>
+                <p><a href="logout.php">logout</a></p>
+
+                <div class="person-name">Hello, <?=$admin_name?></div>
+            </nav>
+        </div>
+
+    </header>
     <body>
-        <div class="form">
+        <div>
             <p><a href="courses-view-page.php">Back</a> 
             | <a href="courses-insert-page.php">Insert New Record</a> 
             | <a href="admin-home-page.php">Home</a>
