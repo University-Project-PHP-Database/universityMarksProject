@@ -27,7 +27,6 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
                 </div>
 
                 <div class="person-name">Hello, <?=$admin_name?></div>
-                <p><a href="logout.php">logout</a></p>
 
             </nav>
         </div>
@@ -37,7 +36,9 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         <div >
             <p class="positioning-body"><a href="admin-home-page.php">Home</a> 
 |               <a href="course-insert-page.php">Insert New Student</a> 
-|               <a href="admin-home-page.php">Back</a></p>
+|               <a href="admin-home-page.php">Back</a>
+                <a href="logout.php">Logout</a>
+            </p>
             <h2>Courses Records</h2>
         <table width="100%" border="1" style="border-collapse:collapse;">
         <thead>

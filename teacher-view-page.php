@@ -34,6 +34,8 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         <div>
             <p class="positioning-body"><a href="teacher-insert-page.php">Insert New Teacher</a> 
 |               <a href="admin-home-page.php">Back</a>
+                <a href="logout.php">Logout</a>
+
             <h2>View Records</h2></p>
         <table width="100%" border="1" style="border-collapse:collapse;">
         <thead>

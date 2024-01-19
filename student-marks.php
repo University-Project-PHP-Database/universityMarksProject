@@ -33,7 +33,10 @@
         <div class="positioning-body">
             <a href="./student-marks.php">View marks</a>
             <a href="./student-courses.php">View Courses</a>
+            <a href="logout.php">Logout</a>
+
         </div>
+        <h2>Marks</h2>
         <table border=1>
             <tr>
                 <th>Course</th>

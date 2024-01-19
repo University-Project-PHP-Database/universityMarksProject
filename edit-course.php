@@ -16,7 +16,9 @@ $row = mysqli_fetch_assoc($result);
         <div class="form">
             <p><a href="courses-view-page.php">Back</a> 
             | <a href="courses-insert-page.php">Insert New Record</a> 
-            | <a href="admin-home-page.php">Home</a></p>
+            | <a href="admin-home-page.php">Home</a>
+            <a href="logout.php">Logout</a>
+            </p>
             <h1>Update Record</h1>
             <?php
                 if(isset($_POST['new']) && $_POST['new']==1)
