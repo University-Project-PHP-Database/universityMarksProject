@@ -167,24 +167,65 @@
 
 
 // TRIGGER to calculate deadline and save it in Exam table
-    $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON Exam
-        FOR EACH ROW
-        BEGIN
-            DECLARE start_date DATE;
-            DECLARE new_deadline DATE;
-            DECLARE new_duration INT;
+$query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
+    FOR EACH ROW
+    BEGIN
+        DECLARE start_date DATE;
+        DECLARE new_deadline DATE;
+        DECLARE new_duration INT;
 
-            SET start_date = NEW.fromdate;
-            SET new_duration = NEW.duration;
+        SET start_date = NEW.fromdate;
+        SET new_duration = NEW.duration;
 
-            SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
-        END";
+        SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
+    END";
     mysqli_query($connect, $query);
     //data to test the trigger
     $insert_exam = "INSERT INTO Exam (xid, xlabel, fromdate, todate, deadline, duration) 
-    VALUES ('2223s11f', 'FinalExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
+    VALUES ('2223s11e', 'ExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
 
     mysqli_query($connect, $insert_exam);
+
+
+
+    $query = "CREATE TRIGGER ti_markregister
+    AFTER INSERT ON MarkRegister
+    FOR EACH ROW
+    BEGIN
+        DECLARE avg_mark DECIMAL(5,2);
+        DECLARE mark_value INT;
+    
+        SET mark_value = NEW.mark;
+    
+        SET avg_mark = (
+            SELECT AVG(M.mark)
+            FROM MarkRegister M
+            WHERE M.student = NEW.student
+        );
+    
+        IF (mark_value >= 50 OR (mark_value BETWEEN 35 AND 49 AND avg_mark >= 55)) THEN
+            UPDATE Student
+            SET obtainedCourses = obtainedCourses + 1,
+                acquiredCredits = acquiredCredits + (
+                    SELECT credits
+                    FROM course c
+                    WHERE c.cid = NEW.course
+                )
+            WHERE sid = NEW.student;
+    
+            UPDATE course
+            SET obtainedBy = obtainedBy + 1
+            WHERE cid = NEW.course;
+        ELSE
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'No action to take';
+        END IF;
+    END;
+    ";
+    
+    mysqli_query($connect, $query);
+    $query = "INSERT into MarkRegister values ( '200', 'I207E', '2223s1f',  55)";
+    mysqli_query($connect, $query);
 
     mysqli_close($connect);
 

@@ -61,4 +61,27 @@
         
         mysqli_close($connect);
     }
+
+    
+    function view_avg($id) {
+        $connect = database_connection();
+        
+        $query = "SELECT E.xlabel, AVG(M.mark) AS avg_mark
+                FROM markregister M, exam E
+                WHERE E.xid=M.exam
+                AND M.student = '$id'
+                GROUP BY E.xlabel";
+        
+        $result = $connect->query($query);
+        
+        // Fetching all rows if there are multiple xlabels
+        $averages = [];
+        while ($row = $result->fetch_assoc()) {
+            $averages[$row['xlabel']] = $row['avg_mark'];
+        }
+        
+        $connect->close();
+    
+        return $averages;
+    }
 ?>

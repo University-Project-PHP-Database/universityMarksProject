@@ -4,6 +4,7 @@
     $stud_sid = $_COOKIE['student_sid']; // contains sid for logged in student
     // we have to access database <markregister> to get marks in courses for this student 
     $result = get_marks_ccode($stud_sid);
+    $averages = view_avg($stud_sid);
 
 ?>
 
@@ -57,6 +58,22 @@
             
             
             ?>
+        </table>
+        <table border=1>
+            <tr>
+                <th>xlabel</th>
+                <th>Average</th>
+            </tr>
+        <?php
+
+            foreach ($averages as $xlabel => $avg_mark) {
+                echo "<tr>
+                    <td>$xlabel</td>
+                    <td> $avg_mark</td>
+                    </tr>";
+            }
+
+        ?>
         </table>
     </main>
     <footer>
