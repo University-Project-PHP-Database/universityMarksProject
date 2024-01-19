@@ -10,9 +10,8 @@ $con = database_connection();
     </head>
     <body>
         <div class="form">
-            <p><a href="admin-home-page.php">Home</a> 
-|               <a href="teacher-insert-page.php">Insert New Teacher</a> 
-|               <a href="logout.php">Logout</a></p>
+            <p><a href="teacher-insert-page.php">Insert New Teacher</a> 
+|               <a href="admin-home-page.php">Back</a></p>
             <h2>View Records</h2>
         <table width="100%" border="1" style="border-collapse:collapse;">
         <thead>

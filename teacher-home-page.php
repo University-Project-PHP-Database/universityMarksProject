@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Student's Page</title>
+    <title>Teacher's Page</title>
 </head>
 
 <body>
@@ -22,6 +22,7 @@
                 <div id="icons">
                     <a class="setting-icon" href="./student-setting.php"><img src="./setting-icon.png" width="27" height="27"></a>
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                    <p><a href="logout.php">logout</a></p>
                 </div>
 
                 <div class="person-name">Hello, <?=$teacher_name?></div>
