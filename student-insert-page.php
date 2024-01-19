@@ -53,7 +53,7 @@ if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth'])
     </header>
     <body>
         <div >
-        <p><a href="admin-home-page.php">home</a> 
+        <p class="positioning-body"><a href="admin-home-page.php">home</a> 
         | <a href="student-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
             <div>

@@ -54,7 +54,7 @@ if(isset($_POST['tid']) && isset($_POST['tname'])  && isset($_POST['address']) &
     </header>
     <body>
         <div >
-        <p><a href="admin-home-page.php">Home</a> 
+        <p class="positioning-body"><a href="admin-home-page.php">Home</a> 
         | <a href="teacher-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
             <div>

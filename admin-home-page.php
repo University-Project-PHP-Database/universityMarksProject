@@ -30,7 +30,7 @@
 
     </header>
     <main>
-            <p><a href="student-view-page.php">View Student</a> 
+            <p class="positioning-body"><a href="student-view-page.php">View Student</a> 
             <a href="teacher-view-page.php">View Teacher</a> 
     |       <a href="courses-view-page.php">View Courses</a> 
             <a href="exams-view-page.php">View Exams</a> 
