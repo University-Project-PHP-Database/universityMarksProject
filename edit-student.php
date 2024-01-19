@@ -1,20 +1,42 @@
 <?php
 include("db_functions.php");
+$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
+$admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
+
 $id=$_REQUEST['sid'];
 $con = database_connection();
 $query = "SELECT * from student where sid='".$id."'"; 
 $result = mysqli_query($con, $query) or die ( mysqli_error($con));
 $row = mysqli_fetch_assoc($result);
 ?>
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Update Student</title>
-    </head>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sub-styles.css">
+    <title>Update Student Page</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <nav>
+                <div id="icons">
+                    <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                </div>
+
+                <div class="person-name">Hello, <?=$admin_name?></div>
+            </nav>
+        </div>
+
+    </header>
+    <main>
     <body>
         <div class="form">
-            <p><a href="student-view-page.php">Back</a> 
+            <p class="positioning-body" ><a href="student-view-page.php">Back</a> 
             | <a href="student-insert-page.php">Insert New Record</a> 
             | <a href="logout.php">Logout</a></p>
             <h1>Update Record</h1>

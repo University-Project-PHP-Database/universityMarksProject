@@ -28,7 +28,6 @@ $row = mysqli_fetch_assoc($result);
                 <div id="icons">
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
                 </div>
-                <p><a href="logout.php">logout</a></p>
 
                 <div class="person-name">Hello, <?=$admin_name?></div>
             </nav>
@@ -37,7 +36,7 @@ $row = mysqli_fetch_assoc($result);
     </header>
     <body>
         <div>
-            <p><a href="courses-view-page.php">Back</a> 
+            <p class="positioning-body"><a href="courses-view-page.php">Back</a> 
             | <a href="courses-insert-page.php">Insert New Record</a> 
             | <a href="admin-home-page.php">Home</a>
             <a href="logout.php">Logout</a>
@@ -52,14 +51,14 @@ $row = mysqli_fetch_assoc($result);
                     $name =$_POST['cname'];
                     $hours = $_POST['hours'];
                     $credits = $_POST['credits'];
-                    $update="update student set cid = $id , teacher='$teacher',ccode ='$code', cname='$name', hours=$hours,credits=$credits where cid=$id";
+                    $update="UPDATE course set cid='$id' , teacher='$teacher', ccode='$code', cname='$name', hours=$hours, credits=$credits WHERE cid='$id';";
                     mysqli_query($con, $update) or die(mysqli_error($con));
                     $status = "Record Updated Successfully. </br></br>
                     <a href='courses-view-page.php'>View Updated Course</a>";
-                }else {
+                } else {
             ?>
             <div>
-                <form name="form" method="post" action=""> 
+                <form name="form" method="post" action="./edit-course.php"> 
                 <input type="hidden" name="new" value="1" />
                 
                 <p><input type="text" name="cid" placeholder="Enter Course ID" required value="<?php echo $row['cid'];?>"/></p>
