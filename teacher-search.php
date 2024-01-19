@@ -1,17 +1,33 @@
 <?php
     include("db_functions.php");
     $con = database_connection();
+	$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
+	$admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
+
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Search Page</title>
+    <title>Insert Student Page</title>
 </head>
-<body>
 
+<body>
+    <header>
+        <div>
+            <nav>
+                <div id="icons">
+                    <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                </div>
+
+                <div class="person-name">Hello, <?=$admin_name?></div>
+            </nav>
+        </div>
+    </header>
+<main>
 
 <?php
 if(isset($_POST['Search']))
@@ -56,14 +72,29 @@ if(isset($_POST['Search']))
     $row = mysqli_fetch_assoc($result);
 
     if($row){
-        echo "ID:" . $row['tid'] . "</br>";
-        echo "Name:" . $row['tname']. "</br>";
-        echo "Address:" . $row['address']. "</br>";
-        echo "Phone:" . $row['phone']. "</br>";
-        echo "Speciality:" . $row['speciality']. "</br>";
 
+		?>
+		<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>Name</td>
+			<td>Address Of Birth</td>
+			<td>Phone</td>
+			<td>Speciality</td>
+		</tr>
+		<tr><?php
+    echo "<td>{$row['tid']}</td>
+          <td>{$row['tname']}</td>
+          <td>{$row['address']}</td>
+          <td>{$row['phone']}</td>
+          <td>{$row['speciality']}</td>";
+		?>
+
+		</tr>
+	</table>
+<?php
     }else{
-        echo "there is no record for this teacher!";
+        echo "<h2>There is no record for this teacher!</h2>";
     }
 
 }else{
@@ -73,25 +104,16 @@ if(isset($_POST['Search']))
 |               <a href="logout.php">Logout</a></p>
 
 
+<h2>Search Teacher (ID or Name)</h2>
 <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-<fieldset>
-	<legend>Search Teacher</legend>
 
-<table border="0" >
-	<tr>
-		<td>ID</td>
-		<td><input type="text" name="tid"  /></td>
-	</tr>
-	<tr>
-		<td>Name</td>
-		<td><input type="text" name="tname"  /></td>
-	</tr>
-<tr>
-		<td colspan="2">&nbsp;&nbsp;<input type="submit" name="Search" /></td>
-	</tr>
-</table>
-</fieldset>
+	ID:<input type="text" name="tid" placeholder="Enter ID" /></td>
+	Name:<input type="text" name="tname"  placeholder="Enter name" /></td>
+	<input type="submit" name="Search" /></td>
+	
 </form>
+
 <?php } mysqli_close($con); ?>
+</main>
 </body>
 </html>

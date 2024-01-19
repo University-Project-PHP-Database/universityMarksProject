@@ -5,9 +5,6 @@ $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
 $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
 ?>
-
-<!DOCTYPE html>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +12,7 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>View Teacher</title>
+    <title>Insert Student Page</title>
 </head>
 
 <body>
@@ -30,7 +27,7 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
             </nav>
         </div>
     </header>
-    <body>
+    <main>
         <div>
             <p class="positioning-body">
                 <a href="teacher-insert-page.php">Insert New Teacher</a>
@@ -73,5 +70,6 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         </tbody>
         </table>
         </div>
+        </main>
     </body>
 </html>
