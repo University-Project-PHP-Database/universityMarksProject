@@ -28,9 +28,12 @@ nav {
 }
 table {
     margin-top: 100px;
-    width: 100%;
-    background-color: rgb(222, 214, 214);
-    
+    width: 80%;
+    background-color: rgb(218, 224, 247);
+    border-color: blue;
+    border-collapse:collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 tr {
     text-align: center;

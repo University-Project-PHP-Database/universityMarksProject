@@ -12,7 +12,7 @@
 // get course, exam and marks from markrigester table 
     function get_marks_ccode($sid) {
         $connect = database_connection();
-        $get_info = "SELECT course, exam, mark FROM markregister WHERE student='$sid'";
+        $get_info = "SELECT course, xlabel, mark FROM markregister, exam WHERE student='$sid' AND xid=exam";
         $result = mysqli_query($connect, $get_info) or die("Query failed: " . mysqli_error($connect));
         
         mysqli_close($connect);

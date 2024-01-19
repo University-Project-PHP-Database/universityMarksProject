@@ -1,9 +1,9 @@
 <?php
     include "db_functions.php";
+    $con = database_connection();
     $stud_name = $_COOKIE['student_name']; // contains sname for logged in student
     $stud_sid = $_COOKIE['student_sid']; // contains sid for logged in student
     // we have to access database <markregister> to get marks in courses for this student 
-    $result = get_marks_ccode($stud_sid);
 
 ?>
 
@@ -29,32 +29,38 @@
                 <div class="person-name">Hello, <?=$stud_name?></div>
             </nav>
         </div>
+
     </header>
     <main>
         <div class="positioning-body">
             <a href="./student-marks.php">View marks</a>
             <a href="./student-courses.php">View Courses</a>
         </div>
-        <table border=1>
-            <tr>
-                <th>Course</th>
-                <th>Exam</th>
-                <th>Marks</th>
-            </tr>
-            <?php
-            
-                while($row = @mysqli_fetch_array($result)) {
-                    echo "
-                        <tr>
-                            <td>{$row['course']}</td>
-                            <td>{$row['xlabel']}</td>
-                            <td>{$row['mark']}</td>
-                    
-                    ";
-                }
-            
-            
-            ?>
+        <table width="100%" border="1" style="border-collapse:collapse;">
+        <thead>
+        <tr>
+        <th><strong>Course code</strong></th>
+        <th><strong>Course name</strong></th>
+        <th><strong>Hours</strong></th>
+        <th><strong>Credits</strong></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+            $sel_query="SELECT cid, cname, hours, credits from studentcourses, course WHERE studentcourses.student='$stud_sid' AND studentcourses.course=course.cid";
+            $result = mysqli_query($con,$sel_query);
+            while($row = mysqli_fetch_assoc($result) ) { 
+                ?>
+                <tr><td align="center"><?php echo $row["cid"] ?></td>
+                <td align="center"><?php echo $row["cname"]; ?></td>
+                <td align="center"><?php echo $row["hours"]; ?></td>
+                <td align="center"><?php echo $row["credits"]; ?></td>
+
+                </tr>
+            <?php } 
+            mysqli_close($con);?>
+        </tbody>
         </table>
     </main>
     <footer>
