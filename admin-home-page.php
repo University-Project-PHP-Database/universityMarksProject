@@ -23,8 +23,6 @@
                 <div id="icons">
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
                 </div>
-                <p><a href="logout.php">logout</a></p>
-
                 <div class="person-name">Hello, <?=$admin_name?></div>
             </nav>
         </div>
@@ -32,9 +30,9 @@
     </header>
     <main>
             <p class="positioning-body"><a href="student-view-page.php">View Student</a> 
-            <a href="teacher-view-page.php">View Teacher</a> 
+    |       <a href="teacher-view-page.php">View Teacher</a> 
     |       <a href="courses-view-page.php">View Courses</a> 
-            <a href="exams-view-page.php">View Exams</a> 
+    |       <a href="exams-view-page.php">View Exams</a>
     |       <a href="logout.php">Logout</a></p>
         </div>
         
