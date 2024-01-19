@@ -15,8 +15,10 @@ if(isset($_POST['tid']) && isset($_POST['tname'])  && isset($_POST['address']) &
     ('$id','$name','$address','$phone','$speciality')";
     mysqli_query($con,$ins_query)
     or die(mysqli_error($con));
-    $ins_query2="insert into loginstudents (`doctor`, `email`, `password`,`type`) values
+    $ins_query2="insert into logindoctors (`doctor`, `email`, `password`,`type`) values
     ('$id', '$email', '$password','$type')";
+    mysqli_query($con,$ins_query2)
+    or die(mysqli_error($con));
     $status = "New Teacher Inserted Successfully.
     </br></br><a href='teacher-view-page.php'>View Inserted teacher</a>";
     mysqli_close($con);
