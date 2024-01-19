@@ -15,7 +15,7 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Admin's Page</title>
+    <title>View Courses</title>
 </head>
 
 <body>

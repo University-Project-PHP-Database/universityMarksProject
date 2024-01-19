@@ -36,7 +36,7 @@ if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth'])
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Student's Page</title>
+    <title>Insert Student Page</title>
 </head>
 
 <body>

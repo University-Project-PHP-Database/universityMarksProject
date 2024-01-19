@@ -37,7 +37,7 @@ if(isset($_POST['tid']) && isset($_POST['tname'])  && isset($_POST['address']) &
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Student's Page</title>
+    <title>Insert Teacher Page</title>
 </head>
 
 <body>
@@ -54,7 +54,7 @@ if(isset($_POST['tid']) && isset($_POST['tname'])  && isset($_POST['address']) &
         </div>
     </header>
     <body>
-        <div class="form">
+        <div >
         <p><a href="admin-home-page.php">Home</a> 
         | <a href="teacher-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
