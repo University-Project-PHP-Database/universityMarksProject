@@ -15,7 +15,7 @@
         <li><a href="#">Login</a>
             <ul>
                 <li><a href="login-as-student.php">Student</a></li>
-                <li><a href="login-as-teacher.php">Doctor</a></li>
+                <li><a href="./login-as-dr-or-admin.php">Doctor</a></li>
             </ul>
         </li>
         <li><a href="news.html">News</a></li>

@@ -22,7 +22,6 @@
         <div>
             <nav>
                 <div id="icons">
-                    <a class="setting-icon" href="./student-setting.php"><img src="./setting-icon.png" width="27" height="27"></a>
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
                 </div>
 
