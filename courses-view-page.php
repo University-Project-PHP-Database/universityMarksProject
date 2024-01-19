@@ -27,6 +27,8 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
                 </div>
 
                 <div class="person-name">Hello, <?=$admin_name?></div>
+                <p><a href="logout.php">logout</a></p>
+
             </nav>
         </div>
 

@@ -22,10 +22,11 @@
             <nav>
                 <div id="icons">
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
-                    <p><a href="logout.php">logout</a></p>
+                    <div class="person-name">Hello, <?=$stud_name?></div>
+                    <p class="logout"><a href="logout.php">logout</a></p>
                 </div>
 
-                <div class="person-name">Hello, <?=$stud_name?></div>
+               
             </nav>
         </div>
 

@@ -23,6 +23,7 @@
                 <div id="icons">
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
                 </div>
+                <p><a href="logout.php">logout</a></p>
 
                 <div class="person-name">Hello, <?=$admin_name?></div>
             </nav>
