@@ -1,6 +1,9 @@
 <?php
 include("db_functions.php");
 $con = database_connection();
+$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
+$admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
+
 $status = "";
 if(isset($_POST['tid']) && isset($_POST['tname'])  && isset($_POST['address']) && isset($_POST['phone'])&& isset($_POST['speciality']) && isset($_POST['email']) && isset($_POST['password'])){
     $id = $_POST['tid'];
@@ -24,12 +27,32 @@ if(isset($_POST['tid']) && isset($_POST['tname'])  && isset($_POST['address']) &
     mysqli_close($con);
 }
 ?>
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Insert New teacher</title>
-    </head>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sub-styles.css">
+    <title>Student's Page</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <nav>
+                <div id="icons">
+                    <a class="setting-icon" href="./student-setting.php"><img src="./setting-icon.png" width="27" height="27"></a>
+                    <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                </div>
+
+                <div class="person-name">Hello, <?=$admin_name?></div>
+            </nav>
+        </div>
+    </header>
     <body>
         <div class="form">
         <p><a href="admin-home-page.php">Home</a> 

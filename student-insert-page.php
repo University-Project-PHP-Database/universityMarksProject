@@ -1,6 +1,9 @@
 <?php
 include("db_functions.php");
 $con = database_connection();
+$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
+$admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
+
 $status = "";
 if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth']) && isset($_POST['address']) && isset($_POST['phone']) && isset($_POST['email']) && isset($_POST['password'])){
     $id = $_POST['sid'];
@@ -23,19 +26,39 @@ if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth'])
     mysqli_close($con);
 }
 ?>
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Insert New student</title>
-    </head>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sub-styles.css">
+    <title>Student's Page</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <nav>
+                <div id="icons">
+                    <a class="setting-icon" href="./student-setting.php"><img src="./setting-icon.png" width="27" height="27"></a>
+                    <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                </div>
+
+                <div class="person-name">Hello, <?=$admin_name?></div>
+            </nav>
+        </div>
+    </header>
     <body>
-        <div class="form">
+        <div >
         <p><a href="admin-home-page.php">home</a> 
         | <a href="student-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
             <div>
-                <h1>Insert New student</h1>
+                <h1 >Insert New student</h1>
                 <form name="form" method="post" action=""> 
                 <input type="hidden" name="new" value="1" />
                 <p><input type="text" name="sid" placeholder="Enter ID" required /></p>
