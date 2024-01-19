@@ -58,7 +58,7 @@ if(isset($_POST['tid']) && isset($_POST['tname'])  && isset($_POST['address']) &
         | <a href="teacher-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
             <div>
-                <h1>Insert New teacher</h1>
+                <h1>Insert New Doctor or Admin</h1>
                 <form name="form" method="post" action=""> 
                 <input type="hidden" name="new" value="1" />
                 <p><input type="text" name="tid" placeholder="Enter ID" required /></p>
