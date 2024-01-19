@@ -5,7 +5,7 @@ $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
 $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
 $status = "";
-if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) && isset($_POST['ccode']) && isset($_POST['hours']) && isset($_POST['credits']) && isset($_POST['obtainedBy'])){
+if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) && isset($_POST['hours']) && isset($_POST['credits']) && isset($_POST['obtainedBy'])){
     $id = $_POST['cid'];
     $name =$_POST['cname'];
     $teacher = $_POST['teacher'];
@@ -15,8 +15,10 @@ if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) &&
     $ins_query="insert into course
     (`cid`,`teacher`,`cname`,`ccode`,`hours`, `credits`, `obtainedBy`) values
     ('$id','$teacher','$name','$id','$hours', '$credits', '$obtainedBy')";
-    mysqli_query($con,$ins_query)
-    or die(mysqli_error($con));
+    $result = mysqli_query($con, $ins_query);
+    if (!$result) {
+        die("Error: " . mysqli_error($con));
+    }
     $status = "New Record Inserted Successfully.
     </br></br><a href='./courses-view-page.php'>View Inserted Courses</a>";
     mysqli_close($con);
@@ -50,7 +52,7 @@ if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) &&
     <body>
         <div >
         <p class="positioning-body"><a href="admin-home-page.php">Home</a> 
-        | <a href="courses-view-page.php">View Records</a> 
+        | <a href="./courses-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
             <div>
                 <h1 >Insert New Course</h1>
@@ -60,7 +62,7 @@ if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) &&
                 <p><input type="text" name="cname" placeholder="Enter Course Name" required /></p>
                 <p><input type="text" name="teacher" placeholder="Enter TeacherID" required /></p>
                 <p><input type="text" name="hours" placeholder="Enter Hours needed" required /></p>
-                <p><input type="text" name="credits" placeholder="Enter Credits amout" required /></p>
+                <p><input type="text" name="credits" placeholder="Enter Credits amount" required /></p>
                 <p><input type="text" name="obtainedBy" placeholder="Enter ObtainedBy" required /></p>
                 <p><input name="submit" type="submit" value="Submit" /></p>
                 </form>
