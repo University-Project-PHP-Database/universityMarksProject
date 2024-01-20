@@ -1,13 +1,13 @@
 <?php
-include("db_functions.php");
-$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
-$admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
+    include("db_functions.php");
+    $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
+    $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
-$id=$_REQUEST['xid'];
-$con = database_connection();
-$query = "SELECT * from exam where xid='".$id."'"; 
-$result = mysqli_query($con, $query) or die ( mysqli_error($con));
-$row = mysqli_fetch_assoc($result);
+    $id=$_REQUEST['xid'];
+    $con = database_connection();
+    $query = "SELECT * from exam where xid='".$id."'"; 
+    $result = mysqli_query($con, $query) or die ( mysqli_error($con));
+    $row = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
