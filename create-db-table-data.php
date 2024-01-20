@@ -167,7 +167,7 @@
 
 
 // TRIGGER to calculate deadline and save it in Exam table
-$query1= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
+$query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     FOR EACH ROW
     BEGIN
         DECLARE start_date DATE;
@@ -178,17 +178,8 @@ $query1= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
         SET new_duration = NEW.duration;
 
         SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
-    END";
-    mysqli_query($connect, $query1);
-    //data to test the trigger
-    $insert_exam = "INSERT INTO Exam (xid, xlabel, fromdate, todate, deadline, duration) 
-    VALUES ('2223s11e', 'ExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
-
-    mysqli_query($connect, $insert_exam);
-
-
-    
-    $query = "CREATE TRIGGER ti_markregister
+    END;
+    CREATE TRIGGER ti_markregister
     AFTER INSERT ON MarkRegister
     FOR EACH ROW
     BEGIN
@@ -220,12 +211,29 @@ $query1= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
             SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'No action to take';
         END IF;
-    END;
+    END;";
+    $result = $connect->multi_query($query);
 
-    
-    ";
+// Check for errors
+if (!$result) {
+    echo "Error: " . $connect->error;
+}
+
+// Consume all result sets
+while ($connect->more_results()) {
+    $connect->next_result();
+}
+
+// Clear the buffered results
+$connect->next_result();
+    //data to test the trigger
+    $insert_exam = "INSERT INTO Exam (xid, xlabel, fromdate, todate, deadline, duration) 
+    VALUES ('2223s11e', 'ExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
+
+    mysqli_query($connect, $insert_exam);
+
+
     //more insertions after triggers creation
-    mysqli_query($connect, $query);
     $query = "INSERT into MarkRegister values ( '200', 'I207E', '2223s1f',  55)";
     $insert_exam = "INSERT into exam values ( 'x400', 'Sem1', '02/14/2023', '02/14/2023',NULL,  30),( 'x401', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50) ";
     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I215F'),('200', 'I2202'), ('201', 'I2202'), ('103', 'I2202') ";
@@ -234,10 +242,80 @@ $query1= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     mysqli_query($connect, $insert_exam);
     mysqli_query($connect, $insert_studentcourses);
     mysqli_query($connect, $insert_markregister);
+    
+
+    // Drop users if they exist
+    $dropAdmin = "DROP USER IF EXISTS 'admin'@'localhost'";
+    $dropDoctor = "DROP USER IF EXISTS 'doctor'@'localhost'";
+    $dropStudent = "DROP USER IF EXISTS 'student'@'localhost'";
+
+    $connect->query($dropAdmin);
+    $connect->query($dropDoctor);
+    $connect->query($dropStudent);
 
 
+
+
+    //Available users
+     $createAdmin = $connect->query("CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123'");
+     $createDoctor = $connect->query("CREATE USER 'doctor'@'localhost' IDENTIFIED BY 'doctor123'");
+    $createStudent = $connect->query("CREATE USER 'student'@'localhost' IDENTIFIED BY 'student123'");
+    
+    if (!$createAdmin || !$createDoctor || !$createStudent) {
+        die("Error creating users: " . $connect->error);
+    }
+    
+    //student can only view selected tables
+    $student_permissions = "GRANT SELECT ON `univdb`.`studentcourses` TO 'student'@'localhost' IDENTIFIED BY 'student123';
+    GRANT SELECT ON `univdb`.`course` TO 'student'@'localhost' IDENTIFIED BY 'student123';
+    GRANT SELECT ON `univdb`.`exam` TO 'student'@'localhost' IDENTIFIED BY 'student123';
+    GRANT SELECT ON `univdb`.`markregister` TO 'student'@'localhost' IDENTIFIED BY 'student123';
+    ";
+    $result = $connect->multi_query($student_permissions); 
+    // Check for errors
+    if (!$result) {
+        echo "Error: " . $connect->error;
+    }
+    // Consume all result sets
+    while ($connect->more_results()) {
+        $connect->next_result();
+    }
+
+// Clear the buffered results
+    $connect->next_result();   
+    //admin can do anything
+    $admin_privileges = " GRANT ALL privileges ON `univdb`.`*` TO 'admin'@localhost IDENTIFIED BY 'admin123';";
+    $result = $connect->multi_query($admin_privileges);    
+    // Check for errors
+    if (!$result) {
+        echo "Error: " . $connect->error;
+    }
+
+    // Consume all result sets
+    while ($connect->more_results()) {
+        $connect->next_result();
+    }
+
+
+
+    $doctor_privileges = "GRANT SELECT ON `univdb`.`studentcourses` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
+    GRANT SELECT ON `univdb`.`course` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
+    GRANT SELECT, INSERT, UPDATE ON `univdb`.`exam` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
+    GRANT SELECT, INSERT, UPDATE, DELETE ON `univdb`.`markregister` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
+    ";
+    $result = $connect->multi_query($doctor_privileges); 
+    // Check for errors
+    if (!$result) {
+        echo "Error: " . $connect->error;
+    }
+    // Consume all result sets
+    while ($connect->more_results()) {
+        $connect->next_result();
+    }
+
+// Clear the buffered results
+    $connect->next_result();   
     mysqli_close($connect);
-
 
 
 

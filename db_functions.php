@@ -9,9 +9,28 @@
 
         return $connect;
     }
+    function doctor_database_connection() {
+        $host = "localhost:3306";
+        $user = 'doctor';
+        $pass = 'doctor123';
+        $db = 'univdb';
+        $connect = mysqli_connect($host, $user, $pass, $db) or die("Connection Error");
+        return $connect;
+    }
+
+    function student_database_connection() {
+        $host = "localhost:3306";
+        $user = 'student';
+        $pass = 'student123';
+        $db = 'univdb';
+        $connect = mysqli_connect($host, $user, $pass, $db) or die("Connection Error");
+        return $connect;
+      
+    }
+
 // get course, exam and marks from markrigester table 
     function get_marks_ccode($sid) {
-        $connect = database_connection();
+        $connect = student_database_connection();
         $get_info = "SELECT course, xlabel, mark FROM markregister, exam WHERE student='$sid' AND xid=exam";
         $result = mysqli_query($connect, $get_info) or die("Query failed: " . mysqli_error($connect));
         
@@ -64,7 +83,7 @@
 
     //students can view there average in each semester
     function view_avg($id) {
-        $connect = database_connection();
+        $connect = student_database_connection();
         
         $query = "SELECT E.xlabel, AVG(M.mark) AS avg_mark
                 FROM markregister M, exam E
@@ -86,7 +105,7 @@
     }
     // doctors can view courses they teach and students they have in each course they teach
     function view_students($id) {
-        $connect = database_connection();
+        $connect = doctor_database_connection();
         $query = "SELECT course, student
         FROM course, studentcourses
         WHERE teacher = '$id'
