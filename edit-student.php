@@ -35,7 +35,7 @@ $row = mysqli_fetch_assoc($result);
     </header>
     <main>
     <body>
-        <div class="form">
+        <div>
             <p class="positioning-body" ><a href="student-view-page.php">Back</a> 
             | <a href="student-insert-page.php">Insert New Record</a> 
             | <a href="logout.php">Logout</a></p>
@@ -43,7 +43,10 @@ $row = mysqli_fetch_assoc($result);
             <?php
                 $status="";
                 if(isset($_POST['new']) && $_POST['new']==1)
+                
                 {
+                try{
+                    mysqli_begin_transaction($con);
                     $id=$_POST['sid'];
                     $name =$_POST['sname'];
                     $bdate = date("Y-m-d",strtotime($_POST['dateofbirth']));
@@ -54,7 +57,14 @@ $row = mysqli_fetch_assoc($result);
                     mysqli_query($con, $update) or die(mysqli_error($con));
                     $status = "Record Updated Successfully. </br></br>
                     <a href='student-view-page.php'>View Updated Student</a>";
-                }else {
+                    mysqli_commit($con);
+                    mysqli_close($con);
+                } catch (Exception $e){
+                    mysqli_rollback($con);
+                    $status = 'Error ' . $e->getMessage() . "<br />";
+                    mysqli_close($con);
+                }
+            }
             ?>
             <div>
                 <form name="form" method="post" action=""> 
@@ -70,7 +80,6 @@ $row = mysqli_fetch_assoc($result);
                 <p><input name="submit" type="submit" value="Update" /></p>
                 </form>
                 <p style="color:#FF0000;"><?php echo $status; ?></p>
-                <?php } mysqli_close($con); ?>
             </div>
         </div>
     </body>

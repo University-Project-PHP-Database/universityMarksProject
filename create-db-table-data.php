@@ -221,6 +221,8 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
             SET MESSAGE_TEXT = 'No action to take';
         END IF;
     END;
+
+    
     ";
     
     mysqli_query($connect, $query);

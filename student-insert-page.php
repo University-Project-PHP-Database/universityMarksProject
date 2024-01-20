@@ -39,7 +39,6 @@ if(isset($_POST['sid']) && isset($_POST['name']) && isset($_POST['dateofbirth'])
 
 ?>
 
-<!DOCTYPE html>
 
 <!DOCTYPE html>
 <html lang="en">
