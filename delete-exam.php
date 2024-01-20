@@ -1,11 +1,13 @@
 <?php
     include "db_functions.php";
     $con = database_connection();
-    $id=$_REQUEST['tid'];
-    $query = "delete from logindoctors where doctor = '$id'";
+    $id=$_REQUEST['xid'];
+    $query = "DELETE from exam where xid='$id';";
     echo $query."<br>";
+
     $result = mysqli_query($con, $query) or die("Query failed: " . mysqli_error($con));
+
     mysqli_close($con);
-    header("Location: teacher-view-page.php"); 
+    header("Location: exam-view-page.php"); 
     exit();
 ?>

@@ -40,7 +40,6 @@
                 <th>studentID</th>
                 <th>mark</th>
                 <th>Edit</th>
-                <th>Delete</th>
 
             </tr>
         <?php
@@ -54,8 +53,8 @@
                     <td>$course</td>
                     <td>$student</td>
                     <td>$mark</td>
-                    <td>edit</td>
-                    <td>delete</td>
+                    <td>"; ?><a href="edit-mark.php?student=<?php echo $row['student']; ?>">Edit</a>
+                    <?php echo"</td>
                 </tr>";
             }
         ?>

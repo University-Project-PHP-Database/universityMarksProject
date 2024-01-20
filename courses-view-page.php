@@ -66,9 +66,9 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
                 <td align="center">
                 <a href="edit-course.php?cid=<?php echo $row["cid"]; ?>">Edit</a>
                 </td>
-                <td align="center">
+                <!-- <td align="center">
                 <a href="delete-course.php?cid=<?php echo $row["cid"]; ?>">Delete</a>
-                </td>
+                </td> -->
                 </tr>
             <?php } 
             mysqli_close($con);?>

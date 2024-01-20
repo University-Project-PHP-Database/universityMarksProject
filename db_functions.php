@@ -48,47 +48,6 @@
         
     }
     
-    // insert a course to the database, $info is an array contain all the information of the element 
-    function insert($tableName, $Info){
-        $connect = database_connection();
-        foreach ($Info as $coloumnName => $coloumnValue) {          
-            $set_info = "INSERT INTO $tableName ($coloumnName) VALUES ('$coloumnValue') ";
-        }
-        $result = mysqli_query($connect, $set_info) or die("Query failed: " . mysqli_error($connect));
-        
-        mysqli_close($connect);
-        
-    }
-
-    function delete($tableName, $id ,$eid){
-
-        $connect = database_connection();
-        $query = "delete from $tableName where $id = $eid";
-        echo $query."<br>";
-        $result = mysqli_query($connect, $query) or die("Query failed: " . mysqli_error($connect));
-        
-        mysqli_close($connect);
-    }
-
-    function search($tableName, $eid){
-        $connect = database_connection();
-        $query = "SELECT * from '$tableName' where sid.='".$eid."'"; 
-        $result = mysqli_query($connect, $query) or die("Query failed: " . mysqli_error($connect));
-
-        mysqli_close($connect);
-
-        return $result;
-    }
-
-    function edit($tableName,$Info,$id,$eid){
-        $connect = database_connection();
-        foreach ($Info as $coloumnName => $coloumnValue) {          
-            $set_info = "update '$tableName' set '$coloumnName' = '$coloumnValue' where '$id' = '$eid' ";
-        }
-        $result = mysqli_query($connect, $set_info) or die("Query failed: " . mysqli_error($connect));
-        
-        mysqli_close($connect);
-    }
 
     //students can view there average in each semester
     function view_avg($id) {

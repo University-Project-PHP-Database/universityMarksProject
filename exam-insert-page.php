@@ -50,7 +50,7 @@ if(isset($_POST['xid']) && isset($_POST['xlabel']) && isset($_POST['fromdate']) 
     <body>
         <div >
         <p class="positioning-body"><a href="admin-home-page.php">Home</a> 
-        | <a href="./courses-view-page.php">View Records</a> 
+        | <a href="./exams-view-page.php">View Records</a> 
         | <a href="logout.php">Logout</a></p>
             <div>
                 <h1 >Insert New Exam</h1>
