@@ -4,8 +4,9 @@ $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
 $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
 $id=$_REQUEST['student'];
+$course = $_REQUEST['course'];
 $con = admin_database_connection();
-$query = "SELECT * from mark register where student='".$id."'"; 
+$query = "SELECT * from markregister where student='".$id."' and course='$course' "; 
 $result = mysqli_query($con, $query) or die ( mysqli_error($con));
 $row = mysqli_fetch_assoc($result);
 ?>
@@ -37,7 +38,7 @@ $row = mysqli_fetch_assoc($result);
     <body>
         <div>
             <p class="positioning-body" ><a href="student-view-page.php">Back</a> 
-            | <a href="teacher-mark-page.php">Insert New Record</a> 
+            | <a href="teacher-marks-page.php">Insert New Record</a> 
             | <a href="logout.php">Logout</a></p>
             <h1>Update Record</h1>
 
@@ -48,12 +49,12 @@ $row = mysqli_fetch_assoc($result);
                 {
                 try{
                     mysqli_begin_transaction($con);
-                    $id= $_POST['student'];
+                    $id= $_POST['sid'];
                     $mark =$_POST['mark'];
-                    $update="update markregister set mark=$mark where student=$id";
+                    $update="update markregister set mark=$mark where student='$id'";
                     mysqli_query($con, $update) or die(mysqli_error($con));
                     $status = "Record Updated Successfully. </br></br>
-                    <a href='teacher-mark-page.php'>View Updated mark</a>";
+                    <a href='teacher-marks-page.php'>View Updated mark</a>";
                     mysqli_commit($con);
                     mysqli_close($con);
                 } catch (Exception $e){
@@ -70,7 +71,7 @@ $row = mysqli_fetch_assoc($result);
                 <form name="form" method="post" action=""> 
                 <input type="hidden" name="new" value="1" />
                 <p><input type="label" name="sid"  value="<?php echo $row['student'];?>"/></p>
-                <p><input type="text" name="sname" placeholder="Enter mark" required value="<?php echo $row['mark'];?>"/></p>
+                <p><input type="text" name="mark" placeholder="Enter mark" required value="<?php echo $row['mark'];?>"/></p>
                 <p><input name="submit" type="submit" value="Update" /></p>
                 </form>
             </div>

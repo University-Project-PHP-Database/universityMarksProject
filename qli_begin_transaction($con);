@@ -1,0 +1,74 @@
+[1mdiff --git a/create-db-table-data.php b/create-db-table-data.php[m
+[1mindex 9c7bc26..4c1d4a1 100644[m
+[1m--- a/create-db-table-data.php[m
+[1m+++ b/create-db-table-data.php[m
+[36m@@ -303,6 +303,7 @@[m [m$query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam[m
+     GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`exam` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';[m
+     GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`studentcourses` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';[m
+     GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`teacher` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';[m
+[32m+[m[32m    GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`markregister` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';[m[41m[m
+     ";[m
+     $result = $connect->multi_query($admin_privileges); [m
+     if (!$result) {[m
+[1mdiff --git a/edit-mark.php b/edit-mark.php[m
+[1mindex abcdd34..4b8c0f4 100644[m
+[1m--- a/edit-mark.php[m
+[1m+++ b/edit-mark.php[m
+[36m@@ -4,8 +4,9 @@[m [m$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin[m
+ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin[m
+ [m
+ $id=$_REQUEST['student'];[m
+[32m+[m[32m$course = $_REQUEST['course'];[m
+ $con = admin_database_connection();[m
+[31m-$query = "SELECT * from mark register where student='".$id."'"; [m
+[32m+[m[32m$query = "SELECT * from markregister where student='".$id."' and course='$course' ";[m[41m [m
+ $result = mysqli_query($con, $query) or die ( mysqli_error($con));[m
+ $row = mysqli_fetch_assoc($result);[m
+ ?>[m
+[36m@@ -37,7 +38,7 @@[m [m$row = mysqli_fetch_assoc($result);[m
+     <body>[m
+         <div>[m
+             <p class="positioning-body" ><a href="student-view-page.php">Back</a> [m
+[31m-            | <a href="teacher-mark-page.php">Insert New Record</a> [m
+[32m+[m[32m            | <a href="teacher-marks-page.php">Insert New Record</a>[m[41m [m
+             | <a href="logout.php">Logout</a></p>[m
+             <h1>Update Record</h1>[m
+ [m
+[36m@@ -48,12 +49,12 @@[m [m$row = mysqli_fetch_assoc($result);[m
+                 {[m
+                 try{[m
+                     mysqli_begin_transaction($con);[m
+[31m-                    $id= $_POST['student'];[m
+[32m+[m[32m                    $id= $_POST['sid'];[m
+                     $mark =$_POST['mark'];[m
+[31m-                    $update="update markregister set mark=$mark where student=$id";[m
+[32m+[m[32m                    $update="update markregister set mark=$mark where student='$id'";[m
+                     mysqli_query($con, $update) or die(mysqli_error($con));[m
+                     $status = "Record Updated Successfully. </br></br>[m
+[31m-                    <a href='teacher-mark-page.php'>View Updated mark</a>";[m
+[32m+[m[32m                    <a href='teacher-marks-page.php'>View Updated mark</a>";[m
+                     mysqli_commit($con);[m
+                     mysqli_close($con);[m
+                 } catch (Exception $e){[m
+[36m@@ -70,7 +71,7 @@[m [m$row = mysqli_fetch_assoc($result);[m
+                 <form name="form" method="post" action=""> [m
+                 <input type="hidden" name="new" value="1" />[m
+                 <p><input type="label" name="sid"  value="<?php echo $row['student'];?>"/></p>[m
+[31m-                <p><input type="text" name="sname" placeholder="Enter mark" required value="<?php echo $row['mark'];?>"/></p>[m
+[32m+[m[32m                <p><input type="text" name="mark" placeholder="Enter mark" required value="<?php echo $row['mark'];?>"/></p>[m
+                 <p><input name="submit" type="submit" value="Update" /></p>[m
+                 </form>[m
+             </div>[m
+[1mdiff --git a/teacher-marks-page.php b/teacher-marks-page.php[m
+[1mindex cbf1cfd..de1a269 100644[m
+[1m--- a/teacher-marks-page.php[m
+[1m+++ b/teacher-marks-page.php[m
+[36m@@ -53,7 +53,7 @@[m
+                     <td>$course</td>[m
+                     <td>$student</td>[m
+                     <td>$mark</td>[m
+[31m-                    <td>"; ?><a href="edit-mark.php?student=<?php echo $row['student']; ?>">Edit</a>[m
+[32m+[m[32m                    <td>"; ?><a href="edit-mark.php?student=<?php echo $row['student']; ?>&course=<?php echo $row['course']?>">Edit</a>[m
+                     <?php echo"</td>[m
+                 </tr>";[m
+             }[m

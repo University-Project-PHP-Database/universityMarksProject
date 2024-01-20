@@ -303,6 +303,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`exam` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';
     GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`studentcourses` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';
     GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`teacher` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';
+    GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`markregister` TO 'admin'@'localhost' IDENTIFIED BY 'admin123';
     ";
     $result = $connect->multi_query($admin_privileges); 
     if (!$result) {
