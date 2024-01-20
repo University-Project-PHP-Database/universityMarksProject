@@ -6,6 +6,8 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
 $status = "";
 if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) && isset($_POST['hours']) && isset($_POST['credits']) && isset($_POST['obtainedBy'])){
+  try {
+    mysqli_begin_transaction($con);
     $id = $_POST['cid'];
     $name =$_POST['cname'];
     $teacher = $_POST['teacher'];
@@ -21,7 +23,12 @@ if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) &&
     }
     $status = "New Record Inserted Successfully.
     </br></br><a href='./courses-view-page.php'>View Inserted Courses</a>";
+    mysqli_commit($con);
     mysqli_close($con);
+  }catch (Exception $e) {
+    mysqli_rollback($con);
+    $status = 'Error ' . $e->getMessage() . "<br />";
+   }
 }
 ?>
 
@@ -55,6 +62,7 @@ if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) &&
         | <a href="logout.php">Logout</a></p>
             <div>
                 <h1 >Insert New Course</h1>
+                <h2 style="color:#00FF00;"><?php echo $status; ?></h2>
                 <form name="form" method="post" action=""> 
                 <input type="hidden" name="new" value="1" />
                 <p><input type="text" name="cid" placeholder="Enter course ID" required /></p>
@@ -65,7 +73,6 @@ if(isset($_POST['cid']) && isset($_POST['cname']) && isset($_POST['teacher']) &&
                 <p><input type="text" name="obtainedBy" placeholder="Enter ObtainedBy" required /></p>
                 <p><input name="submit" type="submit" value="Submit" /></p>
                 </form>
-                <p style="color:#FF0000;"><?php echo $status; ?></p>
             </div>
         </div>
     </body>

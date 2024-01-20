@@ -50,7 +50,6 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         <th><strong>Hours</strong></th>
         <th><strong>Credits</strong></th>
         <th><strong>Edit</strong></th>
-        <th><strong>Delete</strong></th>
         </tr>
         </thead>
         <tbody>
