@@ -45,6 +45,8 @@
         | <a href="logout.php">Logout</a></p>
             <div>
                 <h1 >Insert New Mark</h1>
+                <h2 style="color:#00FF00;"><?php echo $status; ?></h2>
+
                 <form name="form" method="post" action=""> 
                 <input type="hidden" name="new" value="1" />
                 Student ID:<input type="text" name="student" placeholder="Enter studentID" required />
@@ -53,7 +55,6 @@
                 Mark:<input type="text" name="mark" placeholder="Enter mark"  />
                 <p><input name="submit" type="submit" value="Update" /></p>
                 </form>
-                <p style="color:#FF0000;"><?php echo $status; ?></p>
             </div>
         </div>
     </body>
