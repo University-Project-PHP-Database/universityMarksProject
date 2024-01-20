@@ -27,6 +27,15 @@
         return $connect;
       
     }
+    function admin_database_connection() {
+        $host = "localhost:3306";
+        $user = 'admin';
+        $pass = 'admin123';
+        $db = 'univdb';
+        $connect = mysqli_connect($host, $user, $pass, $db) or die("Connection Error");
+        return $connect;
+      
+    }
 
 // get course, exam and marks from markrigester table 
     function get_marks_ccode($sid) {
@@ -116,7 +125,7 @@
     }
     //doctors can view marks for all students they teach with the course id
     function view_marks($id) {
-        $connect = database_connection();
+        $connect = doctor_database_connection();
         $query = "SELECT s.course, s.student, mark
                   FROM course c, studentcourses s, markregister m
                   WHERE teacher='$id' AND s.course=m.course
@@ -127,7 +136,7 @@
         return $result; 
     }
     function upload_marks($student, $course, $exam, $mark) {
-            $connect = database_connection();
+            $connect = doctor_database_connection();
 
             $ins_query="INSERT into markregister
             (`student`,`course`,`exam`,`mark`) values

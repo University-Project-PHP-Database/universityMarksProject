@@ -213,19 +213,18 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
         END IF;
     END;";
     $result = $connect->multi_query($query);
-
-// Check for errors
-if (!$result) {
-    echo "Error: " . $connect->error;
-}
-
-// Consume all result sets
-while ($connect->more_results()) {
+    // Check for errors
+    if (!$result) {
+        echo "Error: " . $connect->error;
+    }
+    // Consume all result sets
+    while ($connect->more_results()) {
+        $connect->next_result();
+    }
+    // Clear the buffered results
     $connect->next_result();
-}
 
-// Clear the buffered results
-$connect->next_result();
+
     //data to test the trigger
     $insert_exam = "INSERT INTO Exam (xid, xlabel, fromdate, todate, deadline, duration) 
     VALUES ('2223s11e', 'ExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
@@ -256,7 +255,7 @@ $connect->next_result();
 
 
 
-    //Available users
+    //create users
      $createAdmin = $connect->query("CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123'");
      $createDoctor = $connect->query("CREATE USER 'doctor'@'localhost' IDENTIFIED BY 'doctor123'");
     $createStudent = $connect->query("CREATE USER 'student'@'localhost' IDENTIFIED BY 'student123'");
@@ -272,29 +271,34 @@ $connect->next_result();
     GRANT SELECT ON `univdb`.`markregister` TO 'student'@'localhost' IDENTIFIED BY 'student123';
     ";
     $result = $connect->multi_query($student_permissions); 
-    // Check for errors
     if (!$result) {
         echo "Error: " . $connect->error;
     }
-    // Consume all result sets
     while ($connect->more_results()) {
         $connect->next_result();
     }
-
-// Clear the buffered results
     $connect->next_result();   
+
+
+
+
     //admin can do anything
-    $admin_privileges = " GRANT ALL privileges ON `univdb`.`*` TO 'admin'@localhost IDENTIFIED BY 'admin123';";
-    $result = $connect->multi_query($admin_privileges);    
-    // Check for errors
+   
+
+    $admin_privileges = "GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`exam` TO 'admin'@'localhost' IDENTIFIED BY 'admin';
+    GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`student` TO 'admin'@'localhost' IDENTIFIED BY 'admin';
+    GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`course` TO 'admin'@'localhost' IDENTIFIED BY 'admin';
+    GRANT SELECT, UPDATE, INSERT, DELETE ON `univdb`.`studentcourses` TO 'admin'@'localhost' IDENTIFIED BY 'admin';
+    ";
+    $result = $connect->multi_query($admin_privileges); 
     if (!$result) {
         echo "Error: " . $connect->error;
     }
-
-    // Consume all result sets
     while ($connect->more_results()) {
         $connect->next_result();
     }
+    $connect->next_result();   
+
 
 
 
@@ -304,16 +308,12 @@ $connect->next_result();
     GRANT SELECT, INSERT, UPDATE, DELETE ON `univdb`.`markregister` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
     ";
     $result = $connect->multi_query($doctor_privileges); 
-    // Check for errors
     if (!$result) {
         echo "Error: " . $connect->error;
     }
-    // Consume all result sets
     while ($connect->more_results()) {
         $connect->next_result();
     }
-
-// Clear the buffered results
     $connect->next_result();   
     mysqli_close($connect);
 
