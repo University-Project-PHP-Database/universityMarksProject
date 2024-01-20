@@ -62,7 +62,7 @@
         mysqli_close($connect);
     }
 
-    
+    //students can view there average in each semester
     function view_avg($id) {
         $connect = database_connection();
         
@@ -84,6 +84,7 @@
     
         return $averages;
     }
+    // doctors can view courses they teach and students they have in each course they teach
     function view_students($id) {
         $connect = database_connection();
         $query = "SELECT course, student
