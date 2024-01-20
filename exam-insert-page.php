@@ -65,7 +65,7 @@ if(isset($_POST['xid']) && isset($_POST['xlabel']) && isset($_POST['fromdate']) 
                     <input type="date" name="todate" class="form-control" />
                     <input type="text" name="duration" placeholder="Correction duration" class="form-control" />
                 </div>
-                <p><input name="submit" type="submit" value="Update" /></p>
+                <p><input name="submit" type="submit" value="Submit" /></p>
                 </form>
                 <p style="color:#FF0000;"><?php echo $status; ?></p>
             </div>
