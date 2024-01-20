@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Admin's Page</title>
+    <title>Teacher's Page</title>
 </head>
 
 <body>
@@ -28,10 +28,10 @@
 
     </header>
     <main>
-            <p class="positioning-body"><a href="student-view-page.php">View Student</a> 
-    |       <a href="teacher-view-page.php">View Teacher</a> 
-    |       <a href="courses-view-page.php">View Courses</a> 
-    |       <a href="exams-view-page.php">View Exams</a>
+        </div>
+            <p class="positioning-body"><a href="teacher-student-page.php">View Students</a> 
+    |       <a href="teacher-marks-page.php">View Marks</a> 
+    |       <a href="teacher-courses-page.php">View Courses</a> 
     |       <a href="logout.php">Logout</a></p>
         </div>
         
