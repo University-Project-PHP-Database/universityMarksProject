@@ -84,4 +84,9 @@
     
         return $averages;
     }
+    function view_students($id) {
+        $query = "SELECT cid, student FROM course, studentcourses WHERE teacher='$id' GROUP BY cid";
+        $result = $connect->query($query);
+
+    }
 ?>

@@ -135,13 +135,13 @@
     mysqli_query($connect, $create_logindoctors_tbl);
 
 
-    $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin')";
-    $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0)";
-    $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0)";
+    $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin'), ('c001', 'Hala', 'Beirut', '03951293', 'CS-CA')";
+    $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0), ('I2202', 'c001', 'I2202', 'CA', 72, 4, 0)";
+    $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0),  ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
     $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023')";
     $insert_markregister = "INSERT into MarkRegister values ( '201', 'I207E', '2223s1f',  57), ( '103', 'I207E', '2223s1f',  40), ( '201', 'I207F', '2223s1f', 60), ( '201', 'I215F', '2223s1f', 35), ( '103', 'I215F', '2223s1f', 65), ( '200', 'I207F', '2223s1f', 62)";
-    $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123')";
-    $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`, `type`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A')";
+    $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123'), ('400', 'nicole.ab@st.edu.lb', 'nicole123')";
+    $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`, `type`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A'), ('c001', 'hala@st.edu.lb', 'hala123', 'D')";
     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I211F')";
     
     
@@ -167,7 +167,7 @@
 
 
 // TRIGGER to calculate deadline and save it in Exam table
-$query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
+$query1= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     FOR EACH ROW
     BEGIN
         DECLARE start_date DATE;
@@ -179,7 +179,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
 
         SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
     END";
-    mysqli_query($connect, $query);
+    mysqli_query($connect, $query1);
     //data to test the trigger
     $insert_exam = "INSERT INTO Exam (xid, xlabel, fromdate, todate, deadline, duration) 
     VALUES ('2223s11e', 'ExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
@@ -187,7 +187,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     mysqli_query($connect, $insert_exam);
 
 
-
+    
     $query = "CREATE TRIGGER ti_markregister
     AFTER INSERT ON MarkRegister
     FOR EACH ROW
@@ -224,10 +224,17 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
 
     
     ";
-    
+    //more insertions after triggers creation
     mysqli_query($connect, $query);
     $query = "INSERT into MarkRegister values ( '200', 'I207E', '2223s1f',  55)";
+    $insert_exam = "INSERT into exam values ( 'x400', 'Sem1', '02/14/2023', '02/14/2023',NULL,  30),( 'x401', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50) ";
+    $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I215F'),('200', 'I2202'), ('201', 'I2202'), ('103', 'I2202') ";
+    $insert_markregister = "INSERT into MarkRegister values ( '400', 'I2202', 'x400',  50), ( '400', 'I215F', 'x401',  55)";
     mysqli_query($connect, $query);
+    mysqli_query($connect, $insert_exam);
+    mysqli_query($connect, $insert_studentcourses);
+    mysqli_query($connect, $insert_markregister);
+
 
     mysqli_close($connect);
 
