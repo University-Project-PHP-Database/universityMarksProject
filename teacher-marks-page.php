@@ -39,25 +39,30 @@
                 <th>course</th>
                 <th>studentID</th>
                 <th>mark</th>
+                <th>cname</th>
                 <th>Edit</th>
 
             </tr>
         <?php
 
             while ($row = mysqli_fetch_assoc($result)) {
-                    $course = $row['course'];
+                    $course = $row['cid'];
                     $student = $row['student'];
                     $mark = $row['mark'];
+                    $cname = $row['cname'];
 
             echo "<tr>
                     <td>$course</td>
                     <td>$student</td>
                     <td>$mark</td>
-                    <td>"; ?><a href="edit-mark.php?student=<?php echo $row['student']; ?>&course=<?php echo $row['course']?>&mark=<?php echo $row['mark']?>">Edit</a>
-                    <?php echo"</td>
-                </tr>";
-            }
-        ?>
+                    <td>$cname</td>"?>
+                    <td><a href="edit-mark.php?student=<?php echo $row['student'] ?>&course=<?php echo $row['cid'] ?>&mark=<?php echo $row['mark'] ?>">Edit</a></td>
+                    
+                </tr>
+                
+            <?php } ?>
+            
+        
         </table>
         
     </main>

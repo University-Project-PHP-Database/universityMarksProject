@@ -84,11 +84,9 @@ function view_students($id) {
     //doctors can view marks for all students they teach with the course id
     function view_marks($id) {
         $connect = doctor_database_connection();
-        $query = "SELECT s.course, s.student, mark
-                  FROM course c, studentcourses s, markregister m
-                  WHERE teacher='$id' AND s.course=m.course
-                  GROUP BY course, student;
-                  ";
+        $query = "SELECT student, cid, cname, mark
+	              FROM markregister, course
+	              WHERE teacher='$id' AND cid=course ";
         $result = $connect->query($query);
         $connect->close();
         return $result; 
@@ -106,6 +104,7 @@ function view_students($id) {
             $connect->close();
 
     }
+    //doctors can view courses that they teach
     function view_courses($id) {
         $connect = doctor_database_connection();
         $query="SELECT cid, cname, hours, credits, obtainedBy
