@@ -4,7 +4,7 @@ $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
 $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
 $id=$_REQUEST['sid'];
-$con = database_connection();
+$con = admin_database_connection();
 $query = "SELECT * from student where sid='".$id."'"; 
 $result = mysqli_query($con, $query) or die ( mysqli_error($con));
 $row = mysqli_fetch_assoc($result);
@@ -40,6 +40,7 @@ $row = mysqli_fetch_assoc($result);
             | <a href="student-insert-page.php">Insert New Record</a> 
             | <a href="logout.php">Logout</a></p>
             <h1>Update Record</h1>
+
             <?php
                 $status="";
                 if(isset($_POST['new']) && $_POST['new']==1)
@@ -62,11 +63,14 @@ $row = mysqli_fetch_assoc($result);
                 } catch (Exception $e){
                     mysqli_rollback($con);
                     $status = 'Error ' . $e->getMessage() . "<br />";
+                    $row = "";
                     mysqli_close($con);
                 }
             }
             ?>
             <div>
+            <h2 style="color:#00FF00;"><?php echo $status; ?></h2>
+
                 <form name="form" method="post" action=""> 
                 <input type="hidden" name="new" value="1" />
                 <p><input type="text" name="sid" placeholder="Enter ID" required value="<?php echo $row['sid'];?>"/></p>
@@ -79,7 +83,6 @@ $row = mysqli_fetch_assoc($result);
                 <p><input type="text" name="phone" placeholder="Enter Phone Number" required value="<?php echo $row['phone'];?>"/></p>
                 <p><input name="submit" type="submit" value="Update" /></p>
                 </form>
-                <p style="color:#FF0000;"><?php echo $status; ?></p>
             </div>
         </div>
     </body>
