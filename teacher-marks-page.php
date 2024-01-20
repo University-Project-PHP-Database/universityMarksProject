@@ -2,7 +2,7 @@
     include "db_functions.php";
     $teacher_name = $_COOKIE['teacher_name']; // contains tname for logged in doctor
     $teacher_tid = $_COOKIE['teacher_tid']; // contains tid for logged in doctor
-
+    $result = view_marks($teacher_tid);
 ?>
 
 <!DOCTYPE html>
@@ -29,11 +29,32 @@
     </header>
     <main>
         </div>
-            <p class="positioning-body"><a href="teacher-student-page.php">View Students</a> 
+            <p class="positioning-body"><a href="teacher-home-page.php">Back</a> 
     |       <a href="teacher-marks-page.php">View Marks</a> 
-    |       <a href="teacher-courses-page.php">View Courses</a> 
+    |       <a href="./upload-marks.php">Upload Marks</a> 
     |       <a href="logout.php">Logout</a></p>
         </div>
+        <table border=1>
+            <tr>
+                <th>course</th>
+                <th>studentID</th>
+                <th>mark</th>
+            </tr>
+        <?php
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                    $course = $row['course'];
+                    $student = $row['student'];
+                    $mark = $row['mark'];
+
+            echo "<tr>
+                    <td>$course</td>
+                    <td>$student</td>
+                    <td>$mark</td>
+                </tr>";
+            }
+        ?>
+        </table>
         
     </main>
     <footer>

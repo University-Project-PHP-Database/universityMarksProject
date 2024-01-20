@@ -2,7 +2,7 @@
     include "db_functions.php";
     $teacher_name = $_COOKIE['teacher_name']; // contains tname for logged in doctor
     $teacher_tid = $_COOKIE['teacher_tid']; // contains tid for logged in doctor
-    $result1 = view_students($teacher_tid); // view students
+    $result = view_students($teacher_tid); // view students
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
             </tr>
         <?php
 
-            while ($row = mysqli_fetch_assoc($result1)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                     $course = $row['course'];
                     $student = $row['student'];
 

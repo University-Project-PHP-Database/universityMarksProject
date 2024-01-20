@@ -95,4 +95,15 @@
         $connect->close();  
         return $result;
     }
+    function view_marks($id) {
+        $connect = database_connection();
+        $query = "SELECT s.course, s.student, mark
+                  FROM course c, studentcourses s, markregister m
+                  WHERE teacher='$id' AND s.course=m.course
+                  GROUP BY course, student;
+                  ";
+        $result = $connect->query($query);
+        $connect->close();
+        return $result; 
+    }
 ?>
