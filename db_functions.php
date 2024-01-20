@@ -106,4 +106,16 @@ function view_students($id) {
             $connect->close();
 
     }
+    function view_courses($id) {
+        $connect = doctor_database_connection();
+        $query="SELECT cid, cname, hours, credits, obtainedBy
+                FROM course WHERE teacher= '$id'";
+        $result = $connect->query($query);
+        if (!$result) {
+            die("Error: " . mysqli_error($connect));
+        }
+        $connect->close();
+        return $result;
+
+    }
 ?>

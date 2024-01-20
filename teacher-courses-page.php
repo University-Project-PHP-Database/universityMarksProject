@@ -2,6 +2,7 @@
     include "db_functions.php";
     $teacher_name = $_COOKIE['teacher_name']; // contains tname for logged in doctor
     $teacher_tid = $_COOKIE['teacher_tid']; // contains tid for logged in doctor
+    $result = view_courses($teacher_tid);
 
 ?>
 
@@ -34,7 +35,34 @@
     |       <a href="teacher-courses-page.php">View Courses</a> 
     |       <a href="logout.php">Logout</a></p>
         </div>
-        
+        <table border=1>
+            <tr>
+                <th>Course code</th>
+                <th>Course name</th>
+                <th>Hours</th>
+                <th>Credits</th>
+                <th>ObtainedBy</th>
+            </tr>
+        <?php
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                    $cid = $row['cid'];
+                    $cname = $row['cname'];
+                    $hours = $row['hours'];
+                    $credits = $row['credits'];
+                    $obtainedBy = $row['obtainedBy'];
+
+
+            echo "<tr>
+                    <td>$cid</td>
+                    <td>$cname</td>
+                    <td>$hours</td>
+                    <td>$credits</td>
+                    <td>$obtainedBy</td>
+                </tr>";
+            }
+        ?>
+        </table>
     </main>
     <footer>
 
