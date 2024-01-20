@@ -53,7 +53,7 @@
                     <td>$course</td>
                     <td>$student</td>
                     <td>$mark</td>
-                    <td>"; ?><a href="edit-mark.php?student=<?php echo $row['student']; ?>&course=<?php echo $row['course']?>">Edit</a>
+                    <td>"; ?><a href="edit-mark.php?student=<?php echo $row['student']; ?>&course=<?php echo $row['course']?>&mark=<?php echo $row['mark']?>">Edit</a>
                     <?php echo"</td>
                 </tr>";
             }
