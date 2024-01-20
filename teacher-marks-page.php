@@ -39,6 +39,9 @@
                 <th>course</th>
                 <th>studentID</th>
                 <th>mark</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
             </tr>
         <?php
 
@@ -51,6 +54,8 @@
                     <td>$course</td>
                     <td>$student</td>
                     <td>$mark</td>
+                    <td>edit</td>
+                    <td>delete</td>
                 </tr>";
             }
         ?>
