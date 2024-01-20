@@ -36,18 +36,23 @@
         </div>
         <table border=1>
             <tr>
-                <th>course</th>
-                <th>studentID</th>
+                <th>Course code</th>
+                <th>Couse name</th>
+                <th>StudentID</th>
+                <th>Student name</th>
             </tr>
         <?php
 
             while ($row = mysqli_fetch_assoc($result)) {
-                    $course = $row['course'];
+                    $course = $row['cid'];
                     $student = $row['student'];
-
+                    $cname = $row['cname'];
+                    $stud_name = $row['sname'];
             echo "<tr>
                     <td>$course</td>
+                    <td>$cname</td>
                     <td>$student</td>
+                    <td>$stud_name</td>
                 </tr>";
             }
         ?>

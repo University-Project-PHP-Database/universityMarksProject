@@ -179,6 +179,18 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
 
         SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
     END;
+    CREATE TRIGGER tu_exam BEFORE UPDATE ON exam
+    FOR EACH ROW
+    BEGIN
+        DECLARE start_date DATE;
+        DECLARE new_deadline DATE;
+        DECLARE new_duration INT;
+
+        SET start_date = NEW.fromdate;
+        SET new_duration = NEW.duration;
+
+        SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
+    END;    
     CREATE TRIGGER ti_markregister
     AFTER INSERT ON MarkRegister
     FOR EACH ROW
@@ -308,6 +320,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     GRANT SELECT ON `univdb`.`course` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
     GRANT SELECT, INSERT, UPDATE ON `univdb`.`exam` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
     GRANT SELECT, INSERT, UPDATE, DELETE ON `univdb`.`markregister` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
+    GRANT SELECT ON `univdb`.`student` TO 'doctor'@'localhost' IDENTIFIED BY 'doctor123';
     ";
     $result = $connect->multi_query($doctor_privileges); 
     if (!$result) {

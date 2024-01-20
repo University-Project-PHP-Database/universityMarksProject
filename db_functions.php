@@ -112,16 +112,15 @@
     
         return $averages;
     }
-    // doctors can view courses they teach and students they have in each course they teach
-    function view_students($id) {
-        $connect = doctor_database_connection();
-        $query = "SELECT course, student
-        FROM course, studentcourses
-        WHERE teacher = '$id'
-        GROUP BY course, student; ";
-        $result = $connect->query($query);
-        $connect->close();  
-        return $result;
+// doctors can view courses they teach and students they have in each course they teach
+function view_students($id) {
+    $connect = doctor_database_connection();
+    $query = "SELECT c.cname, c.cid, s.student, ss.sname
+    FROM course c, studentcourses s, student ss
+    WHERE c.teacher = '$id' and c.cid=s.course and ss.sid=s.student;";
+    $result = $connect->query($query);
+    $connect->close();  
+    return $result;
     }
     //doctors can view marks for all students they teach with the course id
     function view_marks($id) {
