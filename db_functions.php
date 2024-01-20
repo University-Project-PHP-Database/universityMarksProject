@@ -95,6 +95,7 @@
         $connect->close();  
         return $result;
     }
+    //doctors can view marks for all students they teach with the course id
     function view_marks($id) {
         $connect = database_connection();
         $query = "SELECT s.course, s.student, mark
@@ -105,5 +106,18 @@
         $result = $connect->query($query);
         $connect->close();
         return $result; 
+    }
+    function upload_marks($student, $course, $exam, $mark) {
+            $connect = database_connection();
+
+            $ins_query="INSERT into markregister
+            (`student`,`course`,`exam`,`mark`) values
+            ('$student','$course','$exam','$mark')";
+            $result = $connect->query($ins_query);
+            if (!$result) {
+                die("Error: " . mysqli_error($connect));
+            }
+            $connect->close();
+
     }
 ?>

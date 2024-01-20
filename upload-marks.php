@@ -3,6 +3,18 @@
     $teacher_name = $_COOKIE['teacher_name']; // contains tname for logged in doctor
     $teacher_tid = $_COOKIE['teacher_tid']; // contains tid for logged in doctor
 
+    $status="";
+    if(isset($_POST['student']) && isset($_POST['course']) && isset($_POST['exam']) && isset($_POST['mark'])){
+            $student = $_POST['student'];
+            $course =$_POST['course'];
+            $exam = $_POST['exam'];
+            $mark = $_POST['mark'];
+
+            upload_marks($student, $course, $exam, $mark);
+            $status = "New Record Inserted Successfully.
+            </br></br><a href='./teacher-marks-page.php'>View Inserted Marks</a>";
+    
+    }
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +24,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Teacher's Page</title>
+    <title>Insert Mark Page</title>
 </head>
 
 <body>
@@ -22,23 +34,28 @@
                 <div id="icons">
                     <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
                 </div>
+
                 <div class="person-name">Hello, <?=$teacher_name?></div>
             </nav>
         </div>
-
     </header>
-    <main>
+        <div >
+        <p class="positioning-body"><a href="teacher-home-page.php">Home</a> 
+        | <a href="./teacher-marks-page.php">View Records</a> 
+        | <a href="logout.php">Logout</a></p>
+            <div>
+                <h1 >Insert New Mark</h1>
+                <form name="form" method="post" action=""> 
+                <input type="hidden" name="new" value="1" />
+                Student ID:<input type="text" name="student" placeholder="Enter studentID" required />
+                Course ID:<input type="text" name="course" placeholder="Enter courseID" required />  
+                Exam ID:<input type="text" name="exam" placeholder="Enter examID"  />
+                Mark:<input type="text" name="mark" placeholder="Enter mark"  />
+                <p><input name="submit" type="submit" value="Update" /></p>
+                </form>
+                <p style="color:#FF0000;"><?php echo $status; ?></p>
+            </div>
         </div>
-            <p class="positioning-body"><a href="teacher-student-page.php">View Students</a> 
-    |       <a href="teacher-marks-page.php">View Marks</a> 
-    |       <a href="./upload-marks.php">Upload Marks</a> 
-    |       <a href="logout.php">Logout</a></p>
-        </div>
-        
-    </main>
-    <footer>
-
-    </footer>
-</body>
+    </body>
 
 </html>
