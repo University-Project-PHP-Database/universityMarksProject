@@ -1,16 +1,34 @@
 <?php
     include("db_functions.php");
     $con = database_connection();
+	$admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
+	$admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
+
 ?>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="sub-styles.css">
-    <title>Search Page</title>
+    <title>Insert Student Page</title>
 </head>
+
 <body>
+    <header>
+        <div>
+            <nav>
+                <div id="icons">
+                    <img class="profile-icon" src="./profile-icon.png" width="40" height="40">
+                </div>
+
+                <div class="person-name">Hello, <?=$admin_name?></div>
+            </nav>
+        </div>
+    </header>
+	<main>
 
 <?php
 if(isset($_POST['Search']))
@@ -56,16 +74,28 @@ if(isset($_POST['Search']))
     $row = mysqli_fetch_assoc($result);
 
     if($row){
-        echo "ID:" . $row['cid'] . "</br>";
-        echo "Course Code:" . $row['ccode']. "</br>";
-        echo "Course Name:" . $row['cname']. "</br>";
-        echo "Teacher ID:" . $row['teacher']. "</br>";
-        echo "Hours:" . $row['hours']. "</br>";
-		echo "Credits:" . $row['credits']. "</br>";
-		echo "Obtained BY:" . $row['obtainedBy']. "</br>";
+		?>
+		<table border="1">
+		<tr>
+			<td>ID</td>
+			<td>Course code</td>
+			<td>Course name</td>
+			<td>TeacherID</td>
+			<td>Hours</td>
+			<td>Credits</td>
+			<td>Obtained By</td>
+		</tr>
+		<tr><?php
+    echo "<td>{$row['cid']}</td>
+          <td>{$row['ccode']}</td>
+          <td>{$row['cname']}</td>
+          <td>{$row['teacher']}</td>
+          <td>{$row['hours']}</td>
+          <td>{$row['credits']}</td>
+          <td>{$row['obtainedBy']}</td>";
 
     }else{
-        echo "there is no record for this course!";
+        echo "<h2>There is no record for this course!</h2>";
     }
 
 }else{
@@ -76,24 +106,12 @@ if(isset($_POST['Search']))
 |               <a href="logout.php">Logout</a></p>
 
 <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-<fieldset>
-	<legend>Search Student</legend>
+	ID:<input type="text" name="cid"  />
+	Name:<input type="text" name="cname"  />
+	<input type="submit" name="Search" />
 
-<table border="0" >
-	<tr>
-		<td>ID</td>
-		<td><input type="text" name="cid"  /></td>
-	</tr>
-	<tr>
-		<td>Name</td>
-		<td><input type="text" name="cname"  /></td>
-	</tr>
-<tr>
-		<td colspan="2">&nbsp;&nbsp;<input type="submit" name="Search" /></td>
-	</tr>
-</table>
-</fieldset>
 </form>
 <?php } mysqli_close($con); ?>
+</main>
 </body>
 </html>

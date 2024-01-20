@@ -1,6 +1,6 @@
 <?php
 include("db_functions.php");
-$con = database_connection();
+$con = admin_database_connection();
 $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
 $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
