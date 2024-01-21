@@ -46,6 +46,8 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         <th><strong>Birth date</strong></th>
         <th><strong>Address</strong></th>
         <th><strong>Phone number</strong></th>
+        <th><strong>Acquired Credits</strong></th>
+        <th><strong>Obtained Courses</strong></th>
         <th><strong>Edit</strong></th>
         <th><strong>Delete</strong></th>
         </tr>
@@ -60,6 +62,8 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
                 <td align="center"><?php echo $row["bdate"]; ?></td>
                 <td align="center"><?php echo $row["address"]; ?></td>
                 <td align="center"><?php echo $row["phone"]; ?></td>
+                <td align="center"><?php echo $row["acquiredCredits"]; ?></td>
+                <td align="center"><?php echo $row["obtainedCourses"]; ?></td>
                 <td align="center">
                 <a href="edit-student.php?sid=<?php echo $row["sid"]; ?>">Edit</a>
                 </td>
