@@ -32,6 +32,7 @@
     </header>
     <main>
         <div class="positioning-body">
+            <a href="./student-home-page.php">Home</a>
             <a href="./student-marks.php">View marks</a>
             <a href="./student-courses.php">View Courses</a>
             <a href="logout.php">Logout</a>
