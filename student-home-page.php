@@ -3,7 +3,8 @@
     $stud_name = $_COOKIE['student_name']; // contains sname for logged in student
     $stud_sid = $_COOKIE['student_sid']; // contains sid for logged in student
     // we have to access database <markregister> to get marks in courses for this student 
-
+    $obtainedCourses = view_obtainedCourses($stud_sid);
+    $acquiredCredits = view_aquiredCredits($stud_sid);
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +38,10 @@
             <a href="logout.php">Logout</a>
 
         </div>
-        
+        <div class="container">
+            <h3>Obtained Courses: <?php echo $obtainedCourses['obtainedCourses']?></h3>
+            <h3>Acquired Credits: <?php echo $acquiredCredits['acquiredCredits']?></h3>
+        </div>
     </main>
     <footer>
 

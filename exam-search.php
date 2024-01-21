@@ -111,11 +111,10 @@ if(isset($_POST['Search']))
 |               <a href="logout.php">Logout</a></p>
 
 
-<h2>Search Exam (ID or Label)</h2>
+<h2>Search Exam (ID)</h2>
 <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
 
 	ID:<input type="text" name="xid" placeholder="Enter ID" /></td>
-	Name:<input type="text" name="xlabel"  placeholder="Enter Label" /></td>
 	<input type="submit" name="Search" /></td>
 	
 </form>

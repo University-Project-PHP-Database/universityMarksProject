@@ -247,7 +247,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     //more insertions after triggers creation
     $query = "INSERT into MarkRegister values ( '200', 'I207E', '2223s1f',  55)";
     $insert_exam = "INSERT into exam values ( 'x400', 'Sem1', '02/14/2023', '02/14/2023',NULL,  30),( 'x401', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50) ";
-    $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I215F'),('200', 'I2202'), ('201', 'I2202'), ('103', 'I2202') ";
+    $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I215F'),('200', 'I2202'), ('201', 'I2202'), ('103', 'I2202'), ('400', 'I207E') ";
     $insert_markregister = "INSERT into MarkRegister values ( '400', 'I2202', 'x400',  50), ( '400', 'I215F', 'x401',  55)";
     mysqli_query($connect, $query);
     mysqli_query($connect, $insert_exam);
@@ -265,11 +265,9 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     $connect->query($dropStudent);
 
 
-
-
-    //create users
-     $createAdmin = $connect->query("CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123'");
-     $createDoctor = $connect->query("CREATE USER 'doctor'@'localhost' IDENTIFIED BY 'doctor123'");
+    //create users (security)
+    $createAdmin = $connect->query("CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123'");
+    $createDoctor = $connect->query("CREATE USER 'doctor'@'localhost' IDENTIFIED BY 'doctor123'");
     $createStudent = $connect->query("CREATE USER 'student'@'localhost' IDENTIFIED BY 'student123'");
     
     if (!$createAdmin || !$createDoctor || !$createStudent) {
@@ -281,6 +279,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     GRANT SELECT ON `univdb`.`course` TO 'student'@'localhost' IDENTIFIED BY 'student123';
     GRANT SELECT ON `univdb`.`exam` TO 'student'@'localhost' IDENTIFIED BY 'student123';
     GRANT SELECT ON `univdb`.`markregister` TO 'student'@'localhost' IDENTIFIED BY 'student123';
+    GRANT SELECT ON `univdb`.`student` TO 'student'@'localhost' IDENTIFIED BY 'student123';
     ";
     $result = $connect->multi_query($student_permissions); 
     if (!$result) {

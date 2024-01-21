@@ -1,6 +1,6 @@
 <?php
 include("db_functions.php");
-$con = database_connection();
+$con = admin_database_connection();
 $admin_name = $_COOKIE['teacher_name']; // contains tname for logged in admin
 $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
 
@@ -49,6 +49,7 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         <th><strong>Teacher name</strong></th>
         <th><strong>Hours</strong></th>
         <th><strong>Credits</strong></th>
+        <th><strong>obtainedBy</strong></th>
         <th><strong>Edit</strong></th>
         </tr>
         </thead>
@@ -62,11 +63,12 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
                 <td align="center"><?php echo $row["teacher"]; ?></td>
                 <td align="center"><?php echo $row["hours"]; ?></td>
                 <td align="center"><?php echo $row["credits"]; ?></td>
+                <td align="center"><?php echo $row["obtainedBy"]; ?></td>
                 <td align="center">
                 <a href="edit-course.php?cid=<?php echo $row["cid"]; ?>">Edit</a>
                 </td>
                 <!-- <td align="center">
-                <a href="delete-course.php?cid=<?php echo $row["cid"]; ?>">Delete</a>
+                <a href="delete-course.php?cid= echo $row["cid"];">Delete</a>
                 </td> -->
                 </tr>
             <?php } 

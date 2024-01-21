@@ -82,11 +82,13 @@ function view_students($id) {
     return $result;
     }
     //doctors can view marks for all students they teach with the course id
+
     function view_marks($id) {
         $connect = doctor_database_connection();
-        $query = "SELECT student, cid, cname, mark
-	              FROM markregister, course
-	              WHERE teacher='$id' AND cid=course ";
+        $query = "SELECT m.student, c.cid, cname, m.mark
+                  FROM course c,  markregister m
+                  WHERE c.teacher='$id' AND c.cid=m.course";
+                  
         $result = $connect->query($query);
         $connect->close();
         return $result; 
@@ -117,4 +119,21 @@ function view_students($id) {
         return $result;
 
     }
+    function view_obtainedCourses($id) {
+        $connect = student_database_connection();
+        $query = "SELECT obtainedCourses FROM student WHERE sid='$id'";
+        $result = $connect->query($query);
+        $row = $result->fetch_assoc();
+        $connect->close();
+        return $row;
+    }
+    function view_aquiredCredits($id) {
+        $connect = student_database_connection();
+        $query = "SELECT acquiredCredits FROM student WHERE sid='$id'";
+        $result = $connect->query($query);
+        $row = $result->fetch_assoc();
+        $connect->close();
+        return $row;
+    }
+
 ?>
