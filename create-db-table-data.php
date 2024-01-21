@@ -253,7 +253,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     mysqli_query($connect, $insert_exam);
     mysqli_query($connect, $insert_studentcourses);
     mysqli_query($connect, $insert_markregister);
-    
+
 
     // Drop users if they exist
     $dropAdmin = "DROP USER IF EXISTS 'admin'@'localhost'";
@@ -331,31 +331,32 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     }
     $connect->next_result();   
 
-    $sql = "CREATE PROCEDURE CourseAvg(IN course_id CHAR(5))
+    $sql = "CREATE PROCEDURE `CourseAvg` (IN course_id CHAR(5))
     BEGIN
         DECLARE mark_value DECIMAL(6,2);
         DECLARE sum_value DOUBLE;
         DECLARE counter_value INT;
-        DECLARE avg_value DOUBLE;
-    
+        DECLARE avg_value DECIMAL(6,2);
+        DECLARE done INT DEFAULT FALSE;
+
         DECLARE cur CURSOR FOR
             SELECT m.mark
             FROM markregister m
             WHERE m.course = course_id;
     
+        DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
         OPEN cur;
     
         SET sum_value = 0;
         SET counter_value = 0;
     
-        FETCH cur INTO mark_value;
-    
-        WHILE (@FETCH_STATUS = 0) DO
+        read_loop: LOOP
+            FETCH cur INTO mark_value;
+            IF done THEN LEAVE read_loop; END IF;
             SET sum_value = sum_value + mark_value;
             SET counter_value = counter_value + 1;
-    
-            FETCH cur INTO mark_value;
-        END WHILE;
+        END LOOP;
     
         IF counter_value > 0 THEN
             SET avg_value = sum_value / counter_value;
@@ -365,9 +366,10 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     
         CLOSE cur;
     
-        SELECT avg_value AS avg; -- Assuming you want to return the average
+        SELECT avg_value AS avg; 
     END;
     ";
+
     $result = $connect->multi_query($sql); 
     if (!$result) {
         echo "Error: " . $connect->error;
@@ -378,18 +380,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     $connect->next_result();   
     
     // Call the stored procedure
-    $cid= 'I215F';
-    $sql = "CALL CourseAvg('$cid')";
-    $result = mysqli_query($connect, $sql);
     
-    if ($result) {
-        // Process the result set or output the average
-        $row = mysqli_fetch_assoc($result);
-        echo "Average: " . $row['avg'];
-    } else {
-        // Handle errors
-        echo "Error: " . mysqli_error($connect);
-    }
     
     $connect->close();
 

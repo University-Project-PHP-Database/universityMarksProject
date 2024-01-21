@@ -50,20 +50,24 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         <th><strong>Hours</strong></th>
         <th><strong>Credits</strong></th>
         <th><strong>obtainedBy</strong></th>
-        <!-- <th><strong>Edit</strong></th> -->
+        <th><strong>Average</strong></th>
+        <th><strong>Edit</strong></th>
         </tr>
         </thead>
         <tbody>
         <?php
             $sel_query="Select * from course ORDER BY cid asc;";
             $result = mysqli_query($con,$sel_query);
-            while($row = mysqli_fetch_assoc($result)) { ?>
+            while($row = mysqli_fetch_assoc($result)) {
+                $cid = $row["cid"] ?>
                 <tr><td align="center"><?php echo $row["cid"] ?></td>
                 <td align="center"><?php echo $row["cname"]; ?></td>
                 <td align="center"><?php echo $row["teacher"]; ?></td>
                 <td align="center"><?php echo $row["hours"]; ?></td>
                 <td align="center"><?php echo $row["credits"]; ?></td>
                 <td align="center"><?php echo $row["obtainedBy"]; ?></td>
+                <?php $row['avg'] = view_course_avg($cid)?>
+                <td align="center"><?php echo $row['avg']?></td>
                 <td align="center">
                 <a href="edit-course.php?cid=<?php echo $row["cid"]; ?>">Edit</a>
                 </td>

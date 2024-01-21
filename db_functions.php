@@ -78,7 +78,7 @@ function view_students($id) {
     FROM course c, studentcourses s, student ss
     WHERE c.teacher = '$id' and c.cid=s.course and ss.sid=s.student;";
     $result = $connect->query($query);
-    $connect->close();  
+    $connect->close();
     return $result;
     }
     //doctors can view marks for all students they teach with the course id
@@ -93,6 +93,17 @@ function view_students($id) {
         $connect->close();
         return $result; 
     }
+    function view_marks_admin() {
+        $connect = admin_database_connection();
+        $query = "SELECT m.student, c.cid, cname, m.mark
+                  FROM course c,  markregister m
+                  WHERE c.cid=m.course";
+                  
+        $result = $connect->query($query);
+        $connect->close();
+        return $result; 
+    }
+
     function upload_marks($student, $course, $exam, $mark) {
             $connect = doctor_database_connection();
 
@@ -104,7 +115,7 @@ function view_students($id) {
                 die("Error: " . mysqli_error($connect));
             }
             $connect->close();
-
+            return $result;
     }
     //doctors can view courses that they teach
     function view_courses($id) {
@@ -135,5 +146,21 @@ function view_students($id) {
         $connect->close();
         return $row;
     }
-
+    function view_course_avg($cid) {
+        $connect = database_connection();
+        $sql = "CALL CourseAvg('$cid')";
+        $result = mysqli_query($connect, $sql);
+        
+        if ($result) {
+            // Process the result set or output the average
+            $row = mysqli_fetch_assoc($result);
+            $connect->close();
+            return $row['avg'];
+        } else {
+            // Handle errors
+            echo "Error: " . mysqli_error($connect);
+            $connect->close();
+        }
+        
+    }
 ?>
