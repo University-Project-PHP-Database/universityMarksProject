@@ -192,7 +192,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
         SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
     END;    
     CREATE TRIGGER ti_markregister
-    AFTER INSERT ON MarkRegister
+    BEFORE INSERT ON MarkRegister
     FOR EACH ROW
     BEGIN
         DECLARE avg_mark DECIMAL(5,2);
