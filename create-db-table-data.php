@@ -331,10 +331,14 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     }
     $connect->next_result();   
 
+
+
+    // "CourseAvg" procedure that returns the average of marks of each course and the percentage of succeedin this course.
     $sql = "CREATE PROCEDURE `CourseAvg` (IN course_id CHAR(5))
     BEGIN
         DECLARE mark_value DECIMAL(6,2);
         DECLARE sum_value DOUBLE;
+        DECLARE Passed_counter_value  INT;
         DECLARE counter_value INT;
         DECLARE avg_value DECIMAL(6,2);
         DECLARE done INT DEFAULT FALSE;
@@ -350,39 +354,37 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     
         SET sum_value = 0;
         SET counter_value = 0;
+        SET Passed_counter_value= 0;
     
         read_loop: LOOP
             FETCH cur INTO mark_value;
             IF done THEN LEAVE read_loop; END IF;
-            SET sum_value = sum_value + mark_value;
+
+            --calculate the number of students registered in the course
             SET counter_value = counter_value + 1;
+
+            --calculate the number of students who passed the course exam
+            IF mark_value>=50 THEN
+            SET sum_value = sum_value + mark_value;
+            SET Passed_counter_value=Passed_counter_value +1;
+            END IF
         END LOOP;
     
         IF counter_value > 0 THEN
             SET avg_value = sum_value / counter_value;
+            SET success_percentage = (Passed_counter_value / counter_value)*100;
         ELSE
             SET avg_value = NULL;
+            SET success_percentage = NULL;
         END IF;
     
         CLOSE cur;
     
-        SELECT avg_value AS avg; 
+        SELECT avg_value AS avg, success_percentage AS suc_percentage; 
     END;
     ";
 
-    $result = $connect->multi_query($sql); 
-    if (!$result) {
-        echo "Error: " . $connect->error;
-    }
-    while ($connect->more_results()) {
-        $connect->next_result();
-    }
-    $connect->next_result();   
-    
-    // Call the stored procedure
-    
-    
-    $connect->close();
+   
 
 
     echo "<h1>Congradualations! Your Database is created successfully..</h1>";

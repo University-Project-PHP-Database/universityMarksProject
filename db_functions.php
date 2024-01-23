@@ -149,18 +149,27 @@ function view_students($id) {
     function view_course_avg($cid) {
         $connect = database_connection();
         $sql = "CALL CourseAvg('$cid')";
-        $result = mysqli_query($connect, $sql);
+        $result = $connect->multi_query($sql);
         
         if ($result) {
             // Process the result set or output the average
             $row = mysqli_fetch_assoc($result);
             $connect->close();
-            return $row['avg'];
+            return $row;
         } else {
             // Handle errors
             echo "Error: " . mysqli_error($connect);
             $connect->close();
         }
         
+    }
+
+    function compansation_fun(){
+        $connect = database_connection();
+        $query="SELECT sid FROM MarkRegister";
+        $result = $connect->query($query);
+        
+        IF (mark_value BETWEEN 35 AND 49 AND avg_mark >= 55) THEN
+
     }
 ?>
