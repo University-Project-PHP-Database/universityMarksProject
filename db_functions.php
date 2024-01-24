@@ -157,6 +157,7 @@ function view_students($id) {
             $connect->close();
             return $row;
         } else {
+            
             // Handle errors
             echo "Error: " . mysqli_error($connect);
             $connect->close();
@@ -164,12 +165,64 @@ function view_students($id) {
         
     }
 
-    function compansation_fun(){
+    function compensation_fun(){
         $connect = database_connection();
-        $query="SELECT sid FROM MarkRegister";
-        $result = $connect->query($query);
+        //get sid for all student.
+        $sid_query="SELECT sid From Student";
+        $sid_result=mysqli_query($connect, $sid_query);
         
-        IF (mark_value BETWEEN 35 AND 49 AND avg_mark >= 55) THEN
+        if($sid_result){
+       
+        //making compensation for marks of students inorder, student by student 
+        while($sid_row=mysqli_fetch_array($sid_result)){
+         
 
+            //now we want to get all the marks for the student with this $sid
+            $query="SELECT sid, course, exam, mark, xlabel from MarkRegister M, Exam E where M.sid='$sid_row[0]' and M.exam=E.xid";
+            $result=mysqli_query($connect,$query);
+            
+            
+            //we will iterate each mark, then we check if the mark value is between 35 and 49
+            while($row=mysqli_fetch_assoc($result)){
+                 if($row['exam']> 35 && $row['exam']<49){
+
+                    //calculate the average of marks which are within the same semester of the mark $row['exam]
+                    $avg="SELECT AVG(mark) from MarkRegister M, Exam E where M.sid='$sid' and M.exam=E.xid and E.xlabel='".$row['xlabel']."'";
+                    $avg_result=mysqli_query($connect,$avg);
+                    if ($avg_result && mysqli_num_rows($avg_result) > 0){
+                        $avg_row = mysqli_fetch_assoc($avg_result);
+
+                       if($avg_row['mark'] > 55){
+                        //update obtaind courses in the course table
+                        $course_query="UPDATE Course set obtainedBy= obtainedBy+1 where Course.cid='".$row['course']."'";
+                        $course_result=mysqli_query($connect,$course_query);
+
+                        //update acquiredCredits and obtainedCourses in the student table
+                        $student_query="UPDATE Student set acquiredCredits=acquiredCredits +1, obtainedCourses =obtainedCourses+1 where sid='$sid'";
+                        $student_result=mysqli_query($connect,$student_query);
+                        
+                        if(!$course_result || !$student_result){
+                            echo "Error: " . mysqli_error($connect);
+                            mysqli_close($connect);
+                        }
+                        
+                       }
+
+                    }
+                    else {
+                        echo "Error: " . mysqli_error($connect); 
+                    }
+                }
+            }
+       
+        }
+   
+        mysqli_close($connect);
     }
+    else
+    {
+        echo "Error: " . mysqli_error($connect);
+        mysqli_close($connect);
+     }
+}
 ?>

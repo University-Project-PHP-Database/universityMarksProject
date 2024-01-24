@@ -4,7 +4,16 @@
     $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
     $result = view_marks_admin();
 
+
+   
 ?>
+
+<?php  if(isset($_POST['submit'])) {
+            compensation_fun();
+          
+        }
+        ?>
+
 
 
 <!DOCTYPE html>
@@ -68,6 +77,13 @@
         
         </table>
         
+        <br>
+
+        <form action="admin-marks-view.php" method="post">
+       <button type="submit" style="margin-left :8em; background-color: lightblue;">Press here to make compensation</button> 
+       </form>
+       
+           
     </main>
     <footer>
 
