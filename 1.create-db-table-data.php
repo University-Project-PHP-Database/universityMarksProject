@@ -190,7 +190,12 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
         SET new_duration = NEW.duration;
 
         SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
-    END;    
+    END;
+
+
+
+
+    /*trigger to count obtained courses and acquired credits */
     CREATE TRIGGER ti_markregister
     BEFORE INSERT ON MarkRegister
     FOR EACH ROW
@@ -200,13 +205,8 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     
         SET mark_value = NEW.mark;
     
-        SET avg_mark = (
-            SELECT AVG(M.mark)
-            FROM MarkRegister M
-            WHERE M.student = NEW.student
-        );
-    
-        IF (mark_value >= 50 OR (mark_value BETWEEN 35 AND 49 AND avg_mark >= 55)) THEN
+        
+        IF (mark_value >= 50 ) THEN
             UPDATE Student
             SET obtainedCourses = obtainedCourses + 1,
                 acquiredCredits = acquiredCredits + (
