@@ -135,16 +135,18 @@
     )";
     mysqli_query($connect, $create_logindoctors_tbl);
 
-
+//Add flag column into markregister table inorder to use it in the compensation_fun().
+$query = "ALTER TABLE MarkRegister ADD flag int NULL";
+mysqli_query($connect, $query) or die("Error to select".mysql_error($connect));
 
     
 // Add new column deadline(calculated automatically using a trigger) in datetime
 // Add new column duration (entered by admin) in days
 
     $query = "ALTER TABLE Exam ADD deadline datetime NULL";
-    mysqli_query($connect, $query);
+    mysqli_query($connect, $query) or die("Error to select".mysql_error($connect));
     $query = "ALTER table Exam add duration int";
-    mysqli_query($connect, $query);
+    mysqli_query($connect, $query) or die("Error to select".mysql_error($connect));
 
 
 
