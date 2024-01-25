@@ -194,18 +194,23 @@ function view_students($id) {
             
             //we will iterate each mark, then we check if the mark value is between 35 and 49
             while($row=mysqli_fetch_assoc($result)){
-                 if($row['mark']> 35 && $row['mark']<49 && !($row['flag'])){
+                
+                 if($row['mark']> 35 && $row['mark']<49 ){
 
                     //inorder to make the compensation only one times for each mark
-                   $row['flag']= $row['flag']+1;
-                  
+                   
+                    
                     //calculate the average of marks which are within the same semester of the mark $row['exam]//
                     $avg="SELECT AVG(mark) from MarkRegister M, Exam E where M.student='$sid_row[0]' and M.exam=E.xid and E.xlabel='".$row['xlabel']."'";
                     $avg_result=mysqli_query($connect,$avg)  or die("Error to select".mysql_error($connect));
                    
                         $avg_row = mysqli_fetch_array($avg_result);
 
-                       if($avg_row[0] > 55  ){
+                       if($avg_row[0] > 55  && !($row['flag'])){
+                        
+                        $query="UPDATE MarkRegister M SET flag = 1 WHERE M.course='".$row['course']."' and M.student='$sid_row[0]'";
+                        mysqli_query($connect, $query)  or die("Error to select".mysql_error($connect));
+
                         //update obtaind courses in the course table
                         $course_query="UPDATE Course set obtainedBy= obtainedBy+1 where Course.cid='".$row['course']."'";
                         $course_result=mysqli_query($connect,$course_query);
