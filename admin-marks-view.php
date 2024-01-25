@@ -42,7 +42,7 @@
     |       <a href="courses-view-page.php">View Courses</a> 
     |       <a href="exams-view-page.php">View Exams</a>
     |       <a href="./admin-marks-view.php">View Marks</a>
-    |       <a href="logout.php">Logout</a></p>
+    |       <a href="./logout.php">Logout</a></p>
         </div>
         <table border=1>
             <tr>
