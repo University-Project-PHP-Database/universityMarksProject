@@ -148,23 +148,33 @@ function view_students($id) {
     }
     function view_course_avg($cid) {
         $connect = database_connection();
-        $sql = "CALL CourseAvg('$cid')";
-        $result = $connect->multi_query($sql);
-        
-        if ($result) {
-            // Process the result set or output the average
-            $row = mysqli_fetch_assoc($result);
-            $connect->close();
-            return $row;
-        } else {
-            
+    
+        // Call the stored procedure
+        $sql = "CALL CourseAvg('$cid', @avg, @success_percentage)";
+        $result = $connect->query($sql);
+        if (!$result) {
             // Handle errors
-            echo "Error: " . mysqli_error($connect);
+            echo "Error calling stored procedure: " . $connect->error;
             $connect->close();
+            return false;
         }
-        
+        // Fetch the output parameters
+        $outputQuery = "SELECT @avg AS avg, @success_percentage AS suc_percentage";
+        $outputResult = $connect->query($outputQuery);
+    
+        if (!$outputResult) {
+            // Handle errors
+            echo "Error fetching output parameters: " . $connect->error;
+            $connect->close();
+            return false;
+        }
+    
+        // Process the result set or output the average
+        $row = $outputResult->fetch_assoc();
+        $connect->close();
+        return $row;
     }
-
+    
     function compensation_fun(){
         $connect = database_connection();
         //get sid for all student.

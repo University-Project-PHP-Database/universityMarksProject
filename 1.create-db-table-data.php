@@ -135,24 +135,6 @@
     mysqli_query($connect, $create_logindoctors_tbl);
 
 
-    $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin'), ('c001', 'Hala', 'Beirut', '03951293', 'CS-CA')";
-    $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0), ('I2202', 'c001', 'I2202', 'CA', 72, 4, 0)";
-    $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0),  ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
-    $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023')";
-    $insert_markregister = "INSERT into MarkRegister values ( '201', 'I207E', '2223s1f',  57), ( '103', 'I207E', '2223s1f',  40), ( '201', 'I207F', '2223s1f', 60), ( '201', 'I215F', '2223s1f', 35), ( '103', 'I215F', '2223s1f', 65), ( '200', 'I207F', '2223s1f', 62)";
-    $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123'), ('400', 'nicole.ab@st.edu.lb', 'nicole123')";
-    $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`, `type`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A'), ('c001', 'hala@st.edu.lb', 'hala123', 'D')";
-    $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I211F')";
-    
-    
-    mysqli_query($connect, $insert_teacher) or die("Could not add data");
-    mysqli_query($connect, $insert_course) or die("Could not add data");
-    mysqli_query($connect, $insert_student) or die("Could not add data");
-    mysqli_query($connect, $insert_exam) or die("Could not add data");
-    mysqli_query($connect, $insert_markregister) or die("Could not add data");
-    mysqli_query($connect, $insert_studentlogin) or die("Could not add data");
-    mysqli_query($connect, $insert_doctorslogin) or die("Could not add data");
-    mysqli_query($connect, $insert_studentcourses) or die("Could not add data");
 
     
 // Add new column deadline(calculated automatically using a trigger) in datetime
@@ -244,15 +226,45 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     mysqli_query($connect, $insert_exam);
 
 
-    //more insertions after triggers creation
-    $query = "INSERT into MarkRegister values ( '200', 'I207E', '2223s1f',  55)";
+   
+
+
+    $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin'), ('c001', 'Hala', 'Beirut', '03951293', 'CS-CA')";
+    $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0), ('I2202', 'c001', 'I2202', 'CA', 72, 4, 0)";
+    $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0),  ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
+    $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', NULL, 10)";
+    $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123'), ('400', 'nicole.ab@st.edu.lb', 'nicole123')";
+    $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`, `type`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A'), ('c001', 'hala@st.edu.lb', 'hala123', 'D')";
+    $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I211F')";
+    
+    
+    mysqli_query($connect, $insert_teacher) or die("Could not add data");
+    mysqli_query($connect, $insert_course) or die("Could not add data");
+    mysqli_query($connect, $insert_student) or die("Could not add data");
+    mysqli_query($connect, $insert_exam) or die("Could not add data");
+    mysqli_query($connect, $insert_studentlogin) or die("Could not add data");
+    mysqli_query($connect, $insert_doctorslogin) or die("Could not add data");
+    mysqli_query($connect, $insert_studentcourses) or die("Could not add data");
+
+
+ //more insertions after triggers creation
     $insert_exam = "INSERT into exam values ( 'x400', 'Sem1', '02/14/2023', '02/14/2023',NULL,  30),( 'x401', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50) ";
     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I215F'),('200', 'I2202'), ('201', 'I2202'), ('103', 'I2202'), ('400', 'I207E') ";
-    $insert_markregister = "INSERT into MarkRegister values ( '400', 'I2202', 'x400',  50), ( '400', 'I215F', 'x401',  55)";
-    mysqli_query($connect, $query);
+    $insert_markregister = "INSERT into MarkRegister values ( '400', 'I2202', 'x400',  50), ( '400', 'I215F', 'x401',  55), ( '200', 'I207E', '2223s1f',  55), ( '200', 'I207F', '2223s1f', 62)";
     mysqli_query($connect, $insert_exam);
     mysqli_query($connect, $insert_studentcourses);
     mysqli_query($connect, $insert_markregister);
+    $insert_markregister1 = "INSERT into MarkRegister values ( '201', 'I207E', '2223s1f',  57), ( '103', 'I207E', '2223s1f',  40), ( '201', 'I207F', '2223s1f', 60), ( '201', 'I215F', '2223s1f', 35), ( '103', 'I215F', '2223s1f', 65), ( '200', 'I207F', '2223s1f', 62)";
+    mysqli_query($connect, $insert_markregister1) or die("Could not add data");
+
+
+
+
+
+
+
+
+
 
 
     // Drop users if they exist
@@ -269,7 +281,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     $createAdmin = $connect->query("CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123'");
     $createDoctor = $connect->query("CREATE USER 'doctor'@'localhost' IDENTIFIED BY 'doctor123'");
     $createStudent = $connect->query("CREATE USER 'student'@'localhost' IDENTIFIED BY 'student123'");
-    
+
     if (!$createAdmin || !$createDoctor || !$createStudent) {
         die("Error creating users: " . $connect->error);
     }
@@ -334,56 +346,63 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
 
 
     // "CourseAvg" procedure that returns the average of marks of each course and the percentage of succeedin this course.
-    $sql = "CREATE PROCEDURE `CourseAvg` (IN course_id CHAR(5))
+    $sql = "CREATE PROCEDURE `CourseAvg` (IN course_id CHAR(5), OUT avg_value DECIMAL(6,2), OUT success_percentage DECIMAL(5,2))
     BEGIN
         DECLARE mark_value DECIMAL(6,2);
         DECLARE sum_value DOUBLE;
-        DECLARE Passed_counter_value  INT;
+        DECLARE Passed_counter_value INT;
         DECLARE counter_value INT;
-        DECLARE avg_value DECIMAL(6,2);
         DECLARE done INT DEFAULT FALSE;
-
+    
         DECLARE cur CURSOR FOR
             SELECT m.mark
             FROM markregister m
             WHERE m.course = course_id;
     
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
+    
         OPEN cur;
     
         SET sum_value = 0;
         SET counter_value = 0;
-        SET Passed_counter_value= 0;
+        SET Passed_counter_value = 0;
     
         read_loop: LOOP
             FETCH cur INTO mark_value;
             IF done THEN LEAVE read_loop; END IF;
-
-            --calculate the number of students registered in the course
+    
+            -- calculate the number of students registered in the course
             SET counter_value = counter_value + 1;
-
-            --calculate the number of students who passed the course exam
-            IF mark_value>=50 THEN
-            SET sum_value = sum_value + mark_value;
-            SET Passed_counter_value=Passed_counter_value +1;
-            END IF
+    
+            -- calculate the number of students who passed the course exam
+            IF mark_value >= 50 THEN
+                SET sum_value = sum_value + mark_value;
+                SET Passed_counter_value = Passed_counter_value + 1;
+            END IF;
         END LOOP;
     
         IF counter_value > 0 THEN
             SET avg_value = sum_value / counter_value;
-            SET success_percentage = (Passed_counter_value / counter_value)*100;
+            SET success_percentage = (Passed_counter_value / counter_value) * 100;
         ELSE
             SET avg_value = NULL;
             SET success_percentage = NULL;
         END IF;
     
         CLOSE cur;
-    
-        SELECT avg_value AS avg, success_percentage AS suc_percentage; 
-    END;
-    ";
-
+        
+    END;";
+    $result = $connect->multi_query($sql);
+    // Check for errors
+    if (!$result) {
+        echo "Error: " . $connect->error;
+    }
+    // Consume all result sets
+    while ($connect->more_results()) {
+        $connect->next_result();
+    }
+    // Clear the buffered results
+    $connect->next_result();
    
 
 

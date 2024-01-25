@@ -67,11 +67,11 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
                 <td align="center"><?php echo $row["hours"]; ?></td>
                 <td align="center"><?php echo $row["credits"]; ?></td>
                 <td align="center"><?php echo $row["obtainedBy"]; ?></td>
-                <?php $row= view_course_avg($cid)?>
-                <td align="center"><?php echo $row['avg']?></td>
-                <td align="center"><?php echo $row['suc_percentage']?></td>
+                <?php $rowSQL= view_course_avg($cid)?>
+                <td align="center"><?php echo $rowSQL['avg']?></td>
+                <td align="center"><?php echo $rowSQL['suc_percentage']?></td>
                 <td align="center">
-                <a href="edit-course.php?cid=<?php echo $row["cid"]; ?>">Edit</a>
+                <a href="./edit-course.php?cid=<?php echo $row['cid']; ?>">Edit</a>
                 </td>
                 <!-- <td align="center">
                 <a href="delete-course.php?cid= echo $row["cid"];">Delete</a>
