@@ -12,8 +12,8 @@ if(isset($_POST['xid']) && isset($_POST['xlabel']) && isset($_POST['fromdate']) 
     $todate = $_POST['todate'];
     $duration = $_POST['duration'];
     $ins_query="INSERT into exam
-    (`xid`,`xlabel`,`fromdate`,`todate`,`duration`) values
-    ('$id','$xlabel','$fromdate','$todate','$duration')";
+    (`xid`,`xlabel`,`fromdate`,`todate`,`stat`,`duration`) values
+    ('$id','$xlabel','$fromdate','$todate',0,'$duration')";
     $result = mysqli_query($con, $ins_query);
     if (!$result) {
         die("Error: " . mysqli_error($con));

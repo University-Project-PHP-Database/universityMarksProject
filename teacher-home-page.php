@@ -31,7 +31,8 @@
         </div>
             <p class="positioning-body"><a href="teacher-student-page.php">View Students</a> 
     |       <a href="teacher-marks-page.php">View Marks</a> 
-    |       <a href="teacher-courses-page.php">View Courses</a> 
+    |       <a href="teacher-courses-page.php">View Courses</a>
+    |       <a href="teacher-update-status.php">Update Exam Status</a>  
     |       <a href="logout.php">Logout</a></p>
         </div>
         

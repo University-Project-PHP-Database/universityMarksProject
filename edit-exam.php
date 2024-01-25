@@ -51,7 +51,8 @@
                     $fromdate = date("Y-m-d",strtotime($_POST['fromdate']));
                     $todate = date("Y-m-d",strtotime($_POST['todate']));
                     $duration =$_POST['duration'];
-                    $update = "UPDATE exam SET xid='$id', xlabel='$xlabel', fromdate='$fromdate', todate='$todate', duration='$duration' WHERE xid='$id'";
+                    $stat = $_POST['stat'];
+                    $update = "UPDATE exam SET xid='$id', xlabel='$xlabel', fromdate='$fromdate', todate='$todate', stat=$stat, duration='$duration' WHERE xid='$id'";
                     mysqli_query($con, $update) or die(mysqli_error($con));
                     $status = "Record Updated Successfully. </br></br>
                     <a href='exams-view-page.php'>View Updated Exam</a>";
@@ -78,6 +79,7 @@
                     <label for="">todate</label>
                     <input type="date" name="todate" class="form-control" />
                     <input type="text" name="duration" value="<?php echo $row['duration'];?>" placeholder="Correction duration" class="form-control" />
+                    <input type="text" name="stat" value="<?php echo $row['stat'];?>" placeholder="Update Status" class="form-control" />
                 </div>
                 <p><input name="submit" type="submit" value="Update" /></p>
                 </form>

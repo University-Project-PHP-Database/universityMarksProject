@@ -5,6 +5,7 @@
     // we have to access database <markregister> to get marks in courses for this student 
     $result = get_marks_ccode($stud_sid);
     $averages = view_avg($stud_sid);
+    $status = get_status($stud_sid);
 
 ?>
 
@@ -39,6 +40,9 @@
 
         </div>
         <h2>Marks</h2>
+        <?php
+            if($status == 3){
+        ?>
         <table border=1>
             <tr>
                 <th>Course</th>
@@ -76,6 +80,14 @@
 
         ?>
         </table>
+        <?php }elseif($status == 0){
+            echo "The Doctor did not start correction yet.";
+        }elseif($status == 1){
+            echo "The Doctor started the correction phase.";
+        }elseif($status == 2){
+            echo "The Doctor has finished the correction phase, and the marks are under validation";
+        }
+        ?>
     </main>
     <footer>
 

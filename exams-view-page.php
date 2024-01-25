@@ -49,6 +49,7 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
         <th><strong>from date</strong></th>
         <th><strong>to date</strong></th>
         <th><strong>deadline</strong></th>
+        <th><strong>Status</strong></th>
         <th><strong>Edit</strong></th>
         </tr>
         </thead>
@@ -62,6 +63,7 @@ $admin_tid = $_COOKIE['teacher_tid']; // contains tid for logged in admin
                 <td align="center"><?php echo $row["fromdate"]; ?></td>
                 <td align="center"><?php echo $row["todate"]; ?></td>
                 <td align="center"><?php echo $row["deadline"]; ?></td>
+                <td align="center"><?php echo $row["stat"]; ?></td>
                 <td align="center">
                 <a href="edit-exam.php?xid=<?php echo $row["xid"]; ?>">Edit</a>
                 </td>

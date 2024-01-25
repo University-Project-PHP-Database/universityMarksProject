@@ -56,6 +56,7 @@
         xlabel               varchar(30)          null,
         fromdate             datetime             null,
         todate               datetime             null,
+        stat                 int                  not null,
         primary key (xid)
     )";
     mysqli_query($connect, $create_exam_tbl);
@@ -220,7 +221,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
 
     //data to test the trigger
     $insert_exam = "INSERT INTO Exam (xid, xlabel, fromdate, todate, deadline, duration) 
-    VALUES ('2223s11e', 'ExamSem-1', '2023-02-14', '2023-02-14', NULL, 14)";
+    VALUES ('2223s11e', 'ExamSem-1', '2023-02-14', '2023-02-14',2 ,NULL, 14)";
 
     mysqli_query($connect, $insert_exam);
 
@@ -293,11 +294,11 @@ $insert_student = "INSERT INTO Student VALUES
    ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
 
 $insert_exam = "INSERT INTO Exam VALUES 
-   ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', NULL, 0),
-   ('x400', 'Sem1', '02/14/2023', '02/14/2023', NULL, 30),
-   ('x401', 'Sem1', '02/14/2023', '02/14/2023', NULL, 50),
-   ('x402', 'Sem1', '02/14/2023', '02/14/2023', NULL, 50),
-   ('x403', 'Sem1', '02/14/2023', '02/14/2023', NULL, 38)";
+   ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', 2, NULL, 0),
+   ('x400', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 30),
+   ('x401', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 50),
+   ('x402', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 50),
+   ('x403', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 38)";
 
 $insert_markregister = "INSERT INTO MarkRegister(student, course, exam, mark) VALUES 
    ('103', 'I207E', '2223s1f', 40),
