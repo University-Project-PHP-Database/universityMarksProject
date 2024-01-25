@@ -5,14 +5,12 @@
     $result = view_marks_admin();
 
 
+    if(isset($_POST['submit'])) {
+        compensation_fun();
+    }
    
 ?>
 
-<?php  if(isset($_POST['submit'])) {
-            compensation_fun();
-          
-        }
-        ?>
 
 
 
@@ -80,8 +78,8 @@
         <br>
 
         <form action="admin-marks-view.php" method="post">
-       <button type="submit" style="margin-left :8em; background-color: lightblue;">Press here to make compensation</button> 
-       </form>
+            <button type="submit" style="margin-left :8em; background-color: lightblue;">Press here to make compensation</button> 
+        </form>
        
            
     </main>

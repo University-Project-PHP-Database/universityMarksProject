@@ -196,8 +196,8 @@ function view_students($id) {
             while($row=mysqli_fetch_assoc($result)){
                  if($row['exam']> 35 && $row['exam']<49){
 
-                    //calculate the average of marks which are within the same semester of the mark $row['exam]
-                    $avg="SELECT AVG(mark) from MarkRegister M, Exam E where M.sid='$sid' and M.exam=E.xid and E.xlabel='".$row['xlabel']."'";
+                    //calculate the average of marks which are within the same semester of the mark $row['exam]//
+                    $avg="SELECT AVG(mark) from MarkRegister M, Exam E where M.sid='$sid_row[0]' and M.exam=E.xid and E.xlabel='".$row['xlabel']."'";
                     $avg_result=mysqli_query($connect,$avg);
                     if ($avg_result && mysqli_num_rows($avg_result) > 0){
                         $avg_row = mysqli_fetch_assoc($avg_result);
