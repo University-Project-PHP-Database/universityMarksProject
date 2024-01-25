@@ -174,90 +174,54 @@ function view_students($id) {
         $connect->close();
         return $row;
     }
-    function update_status($examid, $status) {
-        $connect = doctor_database_connection();
-
-        $update_query="UPDATE Exam SET stat = $status where xid = '$examid'";
-        $result = $connect->query($update_query);
-        if (!$result) {
-            die("Error: " . mysqli_error($connect));
-        }
-        $connect->close();
-
-    }
-
-    function get_status($id){
-        $connect = student_database_connection();
-        $query = "SELECT exam FROM markregister WHERE student=$id";
-        $result = $connect->query($query);
-        $row = $result->fetch_assoc();
-        $xid = $row['exam'];
-        $query2 ="SELECT stat FROM Exam WHERE `xid`='$xid'";
-        $result2 = $connect->query($query2);
-        $row2 = $result2->fetch_assoc();
-        $stat = $row2['stat'];
-        $connect->close();
-        return $stat;
-    }
     
     function compensation_fun(){
         $connect = database_connection();
         //get sid for all student.
         $sid_query="SELECT sid From Student";
-        $sid_result=mysqli_query($connect, $sid_query);
+        $sid_result=mysqli_query($connect, $sid_query)  or die("Error to select".mysql_error($connect));
         
-        if($sid_result){
+        
        
-        //making compensation for marks of students inorder, student by student 
+        //iterates the sid of studentes
         while($sid_row=mysqli_fetch_array($sid_result)){
          
 
             //now we want to get all the marks for the student with this $sid
-            $query="SELECT sid, course, exam, mark, xlabel from MarkRegister M, Exam E where M.sid='$sid_row[0]' and M.exam=E.xid";
-            $result=mysqli_query($connect,$query);
+            $query="SELECT student, course, exam, mark, xlabel from MarkRegister M, Exam E where M.student='$sid_row[0]' and M.exam=E.xid";
+            $result=mysqli_query($connect,$query)  or die("Error to select".mysql_error($connect));;
             
             
             //we will iterate each mark, then we check if the mark value is between 35 and 49
             while($row=mysqli_fetch_assoc($result)){
-                 if($row['exam']> 35 && $row['exam']<49){
+                 if($row['mark']> 35 && $row['mark']<49){
 
                     //calculate the average of marks which are within the same semester of the mark $row['exam]//
-                    $avg="SELECT AVG(mark) from MarkRegister M, Exam E where M.sid='$sid_row[0]' and M.exam=E.xid and E.xlabel='".$row['xlabel']."'";
-                    $avg_result=mysqli_query($connect,$avg);
-                    if ($avg_result && mysqli_num_rows($avg_result) > 0){
-                        $avg_row = mysqli_fetch_assoc($avg_result);
+                    $avg="SELECT AVG(mark) from MarkRegister M, Exam E where M.student='$sid_row[0]' and M.exam=E.xid and E.xlabel='".$row['xlabel']."'";
+                    $avg_result=mysqli_query($connect,$avg)  or die("Error to select".mysql_error($connect));
+                   
+                        $avg_row = mysqli_fetch_array($avg_result);
 
-                       if($avg_row['mark'] > 55){
+                       if($avg_row[0] > 55){
                         //update obtaind courses in the course table
                         $course_query="UPDATE Course set obtainedBy= obtainedBy+1 where Course.cid='".$row['course']."'";
                         $course_result=mysqli_query($connect,$course_query);
 
                         //update acquiredCredits and obtainedCourses in the student table
-                        $student_query="UPDATE Student set acquiredCredits=acquiredCredits +1, obtainedCourses =obtainedCourses+1 where sid='$sid'";
+                        $student_query="UPDATE Student set acquiredCredits=acquiredCredits +1, obtainedCourses =obtainedCourses+1 where sid='$sid_row[0]'";
                         $student_result=mysqli_query($connect,$student_query);
                         
                         if(!$course_result || !$student_result){
                             echo "Error: " . mysqli_error($connect);
                             mysqli_close($connect);
                         }
-                        
-                       }
-
-                    }
-                    else {
-                        echo "Error: " . mysqli_error($connect); 
                     }
                 }
             }
-       
         }
-   
-        mysqli_close($connect);
+        
     }
-    else
-    {
-        echo "Error: " . mysqli_error($connect);
-        mysqli_close($connect);
-     }
-}
+
+
+
 ?>
