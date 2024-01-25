@@ -151,21 +151,21 @@
 
 // TRIGGER to calculate deadline and save it in Exam table
 $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
-    FOR EACH ROW
-    BEGIN
-        DECLARE start_date DATE;
-        DECLARE new_deadline DATE;
-        DECLARE new_duration INT;
+        FOR EACH ROW
+        BEGIN
+            DECLARE start_date DATE;
+            DECLARE new_deadline DATE;
+            DECLARE new_duration INT;
 
-        SET start_date = NEW.fromdate;
-        SET new_duration = NEW.duration;
+            SET start_date = NEW.fromdate;
+            SET new_duration = NEW.duration;
 
-        SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
-    END;
+            SET NEW.deadline = DATE_ADD(start_date, INTERVAL new_duration DAY);
+        END;
     CREATE TRIGGER tu_exam BEFORE UPDATE ON exam
     FOR EACH ROW
     BEGIN
-        DECLARE start_date DATE;
+        DECLARE start_date DATE;    
         DECLARE new_deadline DATE;
         DECLARE new_duration INT;
 
@@ -207,10 +207,10 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
             UPDATE course
             SET obtainedBy = obtainedBy + 1
             WHERE cid = NEW.course;
-        ELSE
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'No action to take';
         END IF;
+        ELSE 
+                    
+        END
     END;";
     $result = $connect->multi_query($query);
     // Check for errors
@@ -247,17 +247,17 @@ $insert_course = "INSERT INTO Course (cid, teacher, ccode, cname, hours, credits
    ('I221F', 'A001', 'I221F', 'Computer Architecture', 60, 4, 0)";
 
 $insert_student = "INSERT INTO Student VALUES 
-   ('103', 'Lina', '12/14/81', 'Beirut', '07542312', 0, 0),
-   ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0),
-   ('201', 'Fadi', '7/11/82', 'Bekaa', '01232211', 0, 0),
-   ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
+   ('103', 'Lina', '2002-06-25', 'Beirut', '07542312', 0, 0),
+   ('200', 'Sami', '1998-03-23', 'Beirut', '03434111', 0, 0),
+   ('201', 'Fadi', '2000-06-20', 'Bekaa', '01232211', 0, 0),
+   ('400', 'Nicole', '2001-06-20', 'Beirut', '03434331', 0, 0)";
 
 $insert_exam = "INSERT INTO Exam VALUES 
    ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', 2, NULL, 0),
-   ('x400', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 30),
-   ('x401', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 50),
-   ('x402', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 50),
-   ('x403', 'Sem1', '02/14/2023', '02/14/2023', 2, NULL, 38)";
+   ('x400', 'Sem1', '2024-06-20', '2024-06-20', 2, NULL, 30),
+   ('x401', 'Sem1', '2023-04-30', '2024-06-20', 2, NULL, 50),
+   ('x402', 'Sem1', '2024-06-20', '2024-06-20', 2, NULL, 50),
+   ('x403', 'Sem1', '2024-06-20', '2024-06-20', 2, NULL, 38)";
 
 $insert_markregister = "INSERT INTO MarkRegister(student, course, exam, mark) VALUES 
    ('103', 'I207E', '2223s1f', 50),
@@ -281,7 +281,8 @@ $insert_doctorslogin = "INSERT INTO logindoctors (doctor, email, password, type)
    ('A001', 'Jaber@st.edu.lb', 'Jaber123', 'D'),
    ('m001', 'mohD@st.edu.lb', 'mohD123', 'D'),
    ('z000', 'zein@st.edu.lb', 'zein123', 'D'),
-   ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A')";
+   ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A'),
+   ('A002', 'afauor@st.edu.lb', 'afaour123', 'D')";
 
 $insert_studentcourses = "INSERT INTO studentcourses (student, course) VALUES 
    ('103', 'I220E'),
@@ -306,12 +307,7 @@ $insert_studentcourses = "INSERT INTO studentcourses (student, course) VALUES
 
 
 
-
-
-
-
-
-    // Drop users if they exist
+    // Drop users if they exist 
     $dropAdmin = "DROP USER IF EXISTS 'admin'@'localhost'";
     $dropDoctor = "DROP USER IF EXISTS 'doctor'@'localhost'";
     $dropStudent = "DROP USER IF EXISTS 'student'@'localhost'";
@@ -321,7 +317,7 @@ $insert_studentcourses = "INSERT INTO studentcourses (student, course) VALUES
     $connect->query($dropStudent);
 
 
-    //create users (security)
+    //create users in the database (security)
     $createAdmin = $connect->query("CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123'");
     $createDoctor = $connect->query("CREATE USER 'doctor'@'localhost' IDENTIFIED BY 'doctor123'");
     $createStudent = $connect->query("CREATE USER 'student'@'localhost' IDENTIFIED BY 'student123'");
