@@ -208,7 +208,11 @@ function view_students($id) {
                         $course_result=mysqli_query($connect,$course_query);
 
                         //update acquiredCredits and obtainedCourses in the student table
-                        $student_query="UPDATE Student set acquiredCredits=acquiredCredits +1, obtainedCourses =obtainedCourses+1 where sid='$sid_row[0]'";
+                        $student_query="UPDATE Student set obtainedCourses =obtainedCourses+1, acquiredCredits=acquiredCredits +(
+                        SELECT credits
+                        FROM course c
+                        WHERE c.cid = '".$row['course']."')
+                        where sid='$sid_row[0]'";
                         $student_result=mysqli_query($connect,$student_query);
                         
                         if(!$course_result || !$student_result){

@@ -85,7 +85,7 @@ if(isset($_POST['submit'])  && function_exists('compensation_fun')) {
         <br>
 
         <form action="student-view-page.php" method="post">
-            <button type="submit" style="margin-left :8em; background-color: lightblue;">Press here to make compensation</button> 
+            <button type="submit" name="submit" style="margin-left :8em; background-color: lightblue;">Press here to make compensation</button> 
         </form>
         </div>
 
