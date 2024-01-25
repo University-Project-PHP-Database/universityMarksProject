@@ -178,8 +178,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
 
 
     /*trigger to count obtained courses and acquired credits */
-    CREATE TRIGGER ti_markregister
-    BEFORE INSERT ON MarkRegister
+    
     FOR EACH ROW
     BEGIN
         DECLARE avg_mark DECIMAL(5,2);
@@ -228,45 +227,112 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
 
    
 
-
-//     $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin'), ('c001', 'Hala', 'Beirut', '03951293', 'CS-CA')";
-//     $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0), ('I2202', 'c001', 'I2202', 'CA', 72, 4, 0)";
-//     $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0),  ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
-//     $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', NULL, 10)";
-//     $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123'), ('400', 'nicole.ab@st.edu.lb', 'nicole123')";
-//     $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`, `type`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A'), ('c001', 'hala@st.edu.lb', 'hala123', 'D')";
-//     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I211F')";
+/*
+    $insert_teacher = "INSERT INTO Teacher (`tid`, `tname`, `address`, `phone`, `speciality`) VALUES ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-DB'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin'), ('c001', 'Hala', 'Beirut', '03951293', 'CS-CA')";
+     $insert_course = "INSERT into Course (`cid`, `teacher`, `ccode`, `cname`, `hours`, `credits`, `obtainedBy`) values ('I207E', 'm001', 'I207E', 'database', 72, 4, 0), ('I207F', 'm001', 'I207F', 'database', 72, 4, 0), ('I211E','m001', 'I211E', 'A. database', 60, 5, 0), ('I211F','m001', 'I211F', 'A. database', 60, 5, 0), ('I215F','z000', 'I215F', 'Op System', 60, 6, 0), ('I2202', 'c001', 'I2202', 'CA', 72, 4, 0)";
+    $insert_student = "INSERT into Student values ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0),  ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
+     $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', NULL, 10)";
+    $insert_studentlogin = "INSERT INTO `loginstudents` (`student`, `email`, `password`) VALUES ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('103', 'lina.mn@st.edu.lb', 'lina123'), ('400', 'nicole.ab@st.edu.lb', 'nicole123')";
+     $insert_doctorslogin = "INSERT INTO `logindoctors`(`doctor`, `email`, `password`, `type`) VALUES('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A'), ('c001', 'hala@st.edu.lb', 'hala123', 'D')";
+     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I211F')";
     
     
-//     mysqli_query($connect, $insert_teacher) or die("Could not add data");
-//     mysqli_query($connect, $insert_course) or die("Could not add data");
-//     mysqli_query($connect, $insert_student) or die("Could not add data");
-//     mysqli_query($connect, $insert_exam) or die("Could not add data");
-//     mysqli_query($connect, $insert_studentlogin) or die("Could not add data");
-//     mysqli_query($connect, $insert_doctorslogin) or die("Could not add data");
-//     mysqli_query($connect, $insert_studentcourses) or die("Could not add data");
+     mysqli_query($connect, $insert_teacher) or die("Could not add data");
+     mysqli_query($connect, $insert_course) or die("Could not add data");
+     mysqli_query($connect, $insert_student) or die("Could not add data");
+     mysqli_query($connect, $insert_exam) or die("Could not add data");
+    mysqli_query($connect, $insert_studentlogin) or die("Could not add data");
+     mysqli_query($connect, $insert_doctorslogin) or die("Could not add data");
+    mysqli_query($connect, $insert_studentcourses) or die("Could not add data");
 
 
-//  //more insertions after triggers creation
-//     $insert_exam = "INSERT into exam values ( 'x400', 'Sem1', '02/14/2023', '02/14/2023',NULL,  30),( 'x401', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50) ";
-//     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I215F'),('200', 'I2202'), ('201', 'I2202'), ('103', 'I2202'), ('400', 'I207E') ";
-//     $insert_markregister = "INSERT into MarkRegister values ( '400', 'I2202', 'x400',  50), ( '400', 'I215F', 'x401',  55), ( '200', 'I207E', '2223s1f',  55), ( '200', 'I207F', '2223s1f', 62)";
-//     mysqli_query($connect, $insert_exam);
-//     mysqli_query($connect, $insert_studentcourses);
-//     mysqli_query($connect, $insert_markregister);
-//     $insert_markregister1 = "INSERT into MarkRegister values ( '201', 'I207E', '2223s1f',  57), ( '103', 'I207E', '2223s1f',  40), ( '201', 'I207F', '2223s1f', 60), ( '201', 'I215F', '2223s1f', 35), ( '103', 'I215F', '2223s1f', 65), ( '200', 'I207F', '2223s1f', 62)";
-//     mysqli_query($connect, $insert_markregister1) or die("Could not add data");
+
+     $insert_exam = "INSERT into exam values ( 'x400', 'Sem1', '02/14/2023', '02/14/2023',NULL,  30),( 'x401', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50) ";
+     $insert_studentcourses = "INSERT INTO `studentcourses`(`student`, `course`) VALUES('103', 'I215F'),('200', 'I2202'), ('201', 'I2202'), ('103', 'I2202'), ('400', 'I207E') ";
+     $insert_markregister = "INSERT into MarkRegister values ( '400', 'I2202', 'x400',  50), ( '400', 'I215F', 'x401',  55), ( '200', 'I207E', '2223s1f',  55), ( '200', 'I207F', '2223s1f', 62)";
+     mysqli_query($connect, $insert_exam);
+     mysqli_query($connect, $insert_studentcourses);
+     mysqli_query($connect, $insert_markregister);
+     $insert_markregister1 = "INSERT into MarkRegister values ( '201', 'I207E', '2223s1f',  57), ( '103', 'I207E', '2223s1f',  40), ( '201', 'I207F', '2223s1f', 60), ( '201', 'I215F', '2223s1f', 35), ( '103', 'I215F', '2223s1f', 65), ( '200', 'I207F', '2223s1f', 62)";
+     mysqli_query($connect, $insert_markregister1) or die("Could not add data");
 
 
-    $insert_teacher = "INSERT INTO Teacher (tid, tname, address, phone, speciality) VALUES ('A001', 'JaberAli', 'Beirut', '03951293', 'CS-PHP'), ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-GRAPH'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin')";
-    $insert_course = "INSERT into Course (cid, teacher, ccode, cname, hours, credits, obtainedBy) values ('I207E', 'm001', 'I207E', 'database', 72, 5, 0), ('I207F', 'm001', 'I207F', 'database', 72, 5, 0), ('I211E','A001', 'I211E', 'PHP', 72, 5, 0), ('I211F','A001', 'I211F', 'PHP', 72, 5, 0), ('I215E','z000', 'I215E', 'Graph', 60, 4, 0), ('I215F','z000', 'I215F', 'Graph', 60, 4, 0), ('I220E','z000', 'I215F', 'Data Structure', 72, 5, 0), ('I220F','z000', 'I215F', 'Data Structure', 72, 5, 0),('I221E','A001', 'I221E', 'Computer Architecture', 60, 4, 0), ('I221F','A001', 'I221F', 'Computer Architecture', 60, 4, 0)";
+   $insert_teacher = "INSERT INTO Teacher (tid, tname, address, phone, speciality) VALUES ('A001', 'JaberAli', 'Beirut', '03951293', 'CS-PHP'), ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'), ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-GRAPH'), ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin')";
+   $insert_course = "INSERT into Course (cid, teacher, ccode, cname, hours, credits, obtainedBy) values ('I207E', 'm001', 'I207E', 'database', 72, 5, 0), ('I207F', 'm001', 'I207F', 'database', 72, 5, 0), ('I211E','A001', 'I211E', 'PHP', 72, 5, 0), ('I211F','A001', 'I211F', 'PHP', 72, 5, 0), ('I215E','z000', 'I215E', 'Graph', 60, 4, 0), ('I215F','z000', 'I215F', 'Graph', 60, 4, 0), ('I220E','z000', 'I215F', 'Data Structure', 72, 5, 0), ('I220F','z000', 'I215F', 'Data Structure', 72, 5, 0),('I221E','A001', 'I221E', 'Computer Architecture', 60, 4, 0), ('I221F','A001', 'I221F', 'Computer Architecture', 60, 4, 0)";
     $insert_student = "INSERT into Student values ('103', 'Lina', '12/14/81', 'Birut', '07542312', 0, 0), ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0), ('201', 'Fadi', '7/11/82',  'Bekaa', '01232211', 0, 0), ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
     $insert_exam = "INSERT into Exam values ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', NULL, 0),  ( 'x400', 'Sem1', '02/14/2023', '02/14/2023',NULL,  30),( 'x401', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50), ( 'x402', 'Sem1', '02/14/2023', '02/14/2023',NULL,  50), ( 'x403', 'Sem1', '02/14/2023', '02/14/2023',NULL,  38)";
-    $insert_markregister = "INSERT into MarkRegister values  ( '103', 'I207E', '2223s1f',  40),  ( '103', 'I210E', 'x400', 65), ( '200', 'I207E', '2223s1f', 62), ( '200', 'I210E', 'x400', 80), ( '201', 'I207F', 'x401',  36), ( '201', 'I211F', 'x403', 60), ( '201', 'I215F', '2223s1f',75), ( '400', 'I207F', 'x401',40), ( '400', 'I211F', 'x403',55), ( '400', 'I215F', '2223s1f',77)";
+   $insert_markregister = "INSERT into MarkRegister (student, course, exam, mark) values  ( '103', 'I207E', '2223s1f',  40),  ( '103', 'I210E', 'x400', 65), ( '200', 'I207E', '2223s1f', 62), ( '200', 'I210E', 'x400', 80), ( '201', 'I207F', 'x401',  36), ( '201', 'I211F', 'x403', 60), ( '201', 'I215F', '2223s1f',75), ( '400', 'I207F', 'x401',40), ( '400', 'I211F', 'x403',55), ( '400', 'I215F', '2223s1f',77)";
     $insert_studentlogin = "INSERT INTO loginstudents (student, email, password) VALUES ('103', 'lina.mn@st.edu.lb', 'lina123'), ('200', 'sami.ab@st.edu.lb', 'sami123'), ('201', 'fadi.sd@st.edu.lb', 'fadi'),('400', 'nicole.ab@st.edu.lb', 'nicole123')";
-    $insert_doctorslogin = "INSERT INTO logindoctors(doctor, email, password, type) VALUES ('A001', 'Jaber@st.edu.lb', 'Beirut', '03951293', 'D')('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A')";
+    $insert_doctorslogin = "INSERT INTO logindoctors(doctor, email, password, type) VALUES ('A001', 'Jaber@st.edu.lb', 'Jaber123', 'D'),('m001', 'mohD@st.edu.lb', 'mohD123', 'D'), ('z000', 'zein@st.edu.lb', 'zein123', 'D'), ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A')";
     $insert_studentcourses = "INSERT INTO studentcourses(student, course) VALUES ('103', 'I220E'), ('103', 'I221E'), ('200', 'I220E'), ('200', 'I221E'), ('201', 'I220F'),  ('201', 'I221F'), ('400', 'I220F'), ('400', 'I221F')";
-    
+   
+   */
+   
+    $insert_teacher = "INSERT INTO Teacher (tid, tname, address, phone, speciality) VALUES 
+   ('A001', 'JaberAli', 'Beirut', '03951293', 'CS-PHP'),
+   ('m001', 'MohDBOUK', 'Beirut', '03951293', 'CS-DB'),
+   ('z000', 'ZeinIbrahim', 'Beirut', '03000000', 'CS-GRAPH'),
+   ('z101', 'Zeinab', 'Beirut', '03000001', 'CS-Admin')";
+
+$insert_course = "INSERT INTO Course (cid, teacher, ccode, cname, hours, credits, obtainedBy) VALUES 
+   ('I207E', 'm001', 'I207E', 'database', 72, 5, 0),
+   ('I207F', 'm001', 'I207F', 'database', 72, 5, 0),
+   ('I211E', 'A001', 'I211E', 'PHP', 72, 5, 0),
+   ('I211F', 'A001', 'I211F', 'PHP', 72, 5, 0),
+   ('I215E', 'z000', 'I215E', 'Graph', 60, 4, 0),
+   ('I215F', 'z000', 'I215F', 'Graph', 60, 4, 0),
+   ('I220E', 'z000', 'I220E', 'Data Structure', 72, 5, 0),
+   ('I220F', 'z000', 'I220F', 'Data Structure', 72, 5, 0),
+   ('I221E', 'A001', 'I221E', 'Computer Architecture', 60, 4, 0),
+   ('I221F', 'A001', 'I221F', 'Computer Architecture', 60, 4, 0)";
+
+$insert_student = "INSERT INTO Student VALUES 
+   ('103', 'Lina', '12/14/81', 'Beirut', '07542312', 0, 0),
+   ('200', 'Sami', '10-12-81', 'Beirut', '03434111', 0, 0),
+   ('201', 'Fadi', '7/11/82', 'Bekaa', '01232211', 0, 0),
+   ('400', 'Nicole', '12/14/41', 'Beirut', '03434331', 0, 0)";
+
+$insert_exam = "INSERT INTO Exam VALUES 
+   ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', NULL, 0),
+   ('x400', 'Sem1', '02/14/2023', '02/14/2023', NULL, 30),
+   ('x401', 'Sem1', '02/14/2023', '02/14/2023', NULL, 50),
+   ('x402', 'Sem1', '02/14/2023', '02/14/2023', NULL, 50),
+   ('x403', 'Sem1', '02/14/2023', '02/14/2023', NULL, 38)";
+
+$insert_markregister = "INSERT INTO MarkRegister(student, course, exam, mark) VALUES 
+   ('103', 'I207E', '2223s1f', 40),
+   ('103', 'I210E', 'x400', 65),
+   ('200', 'I207E', '2223s1f', 62),
+   ('200', 'I210E', 'x400', 80),
+   ('201', 'I207F', 'x401', 36),
+   ('201', 'I211F', 'x403', 60),
+   ('201', 'I215F', '2223s1f', 75),
+   ('400', 'I207F', 'x401', 40),
+   ('400', 'I211F', 'x403', 55),
+   ('400', 'I215F', '2223s1f', 77)";
+
+$insert_studentlogin = "INSERT INTO loginstudents (student, email, password) VALUES 
+   ('103', 'lina.mn@st.edu.lb', 'lina123'),
+   ('200', 'sami.ab@st.edu.lb', 'sami123'),
+   ('201', 'fadi.sd@st.edu.lb', 'fadi'),
+   ('400', 'nicole.ab@st.edu.lb', 'nicole123')";
+
+$insert_doctorslogin = "INSERT INTO logindoctors (doctor, email, password, type) VALUES 
+   ('A001', 'Jaber@st.edu.lb', 'Jaber123', 'D'),
+   ('m001', 'mohD@st.edu.lb', 'mohD123', 'D'),
+   ('z000', 'zein@st.edu.lb', 'zein123', 'D'),
+   ('z101', 'zeinab@st.edu.lb', 'zeinab123', 'A')";
+
+$insert_studentcourses = "INSERT INTO studentcourses (student, course) VALUES 
+   ('103', 'I220E'),
+   ('103', 'I221E'),
+   ('200', 'I220E'),
+   ('200', 'I221E'),
+   ('201', 'I220F'),
+   ('201', 'I221F'),
+   ('400', 'I220F'),
+   ('400', 'I221F')";
+
 //     $insert_exam = "INSERT into exam values ";
 
     
@@ -274,7 +340,7 @@ $query= "CREATE TRIGGER ti_exam BEFORE INSERT ON exam
     mysqli_query($connect, $insert_course) or die("Could not add data");
     mysqli_query($connect, $insert_student) or die("Could not add data");
     mysqli_query($connect, $insert_exam) or die("Could not add data");
-    mysqli_query($connect, $insert_markregister) or die("Could not add data");
+//mysqli_query($connect, $insert_markregister) or die("Could not add data");
     mysqli_query($connect, $insert_studentlogin) or die("Could not add data");
     mysqli_query($connect, $insert_doctorslogin) or die("Could not add data");
     mysqli_query($connect, $insert_studentcourses) or die("Could not add data");
