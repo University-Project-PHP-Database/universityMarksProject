@@ -236,11 +236,11 @@ function view_students($id) {
 
     function get_status($id){
         $connect = student_database_connection();
-        $query = "SELECT exam FROM student WHERE student=$id";
+        $query = "SELECT exam FROM markregister WHERE student=$id";
         $result = $connect->query($query);
         $row = $result->fetch_assoc();
         $xid = $row['exam'];
-        $query2 ="SELECT stat FROM Exam WHERE `xid`='$xid'";
+        $query2 ="SELECT stat FROM Exam WHERE xid='$xid'";
         $result2 = $connect->query($query2);
         $row2 = $result2->fetch_assoc();
         $stat = $row2['stat'];

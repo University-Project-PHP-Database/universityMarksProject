@@ -261,11 +261,11 @@ $insert_student = "INSERT INTO Student VALUES
    ('400', 'Nicole', '2001-06-20', 'Beirut', '03434331', 0, 0)";
 
 $insert_exam = "INSERT INTO Exam VALUES 
-   ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', 0, NULL, 0),
-   ('x400', 'Sem1', '2024-06-20', '2024-06-20', 0, NULL, 30),
-   ('x401', 'Sem1', '2023-04-30', '2024-06-20', 0, NULL, 50),
-   ('x402', 'Sem1', '2024-06-20', '2024-06-20', 0, NULL, 50),
-   ('x403', 'Sem1', '2024-06-20', '2024-06-20', 0, NULL, 38)";
+   ('2223s1f', 'FinalExamSem-1', '02/14/2023', '02/14/2023', 3, NULL, 0),
+   ('x400', 'Sem1', '2024-06-20', '2024-06-20', 3, NULL, 30),
+   ('x401', 'Sem1', '2023-04-30', '2024-06-20', 3, NULL, 50),
+   ('x402', 'Sem1', '2024-06-20', '2024-06-20', 3, NULL, 50),
+   ('x403', 'Sem1', '2024-06-20', '2024-06-20', 3, NULL, 38)";
 
 $insert_markregister = "INSERT INTO MarkRegister(student, course, exam, mark) VALUES 
    ('103', 'I207E', '2223s1f', 30),
