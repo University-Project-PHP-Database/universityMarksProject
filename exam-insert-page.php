@@ -15,7 +15,10 @@ if(isset($_POST['xid']) && isset($_POST['xlabel']) && isset($_POST['fromdate']) 
     (`xid`,`xlabel`,`fromdate`,`todate`,`stat`,`duration`) values
     ('$id','$xlabel','$fromdate','$todate',0,'$duration')";
     $result = mysqli_query($con, $ins_query);
-    if (!$result) {
+    // $ins_exam = "INSERT INTO markregister (`student`, `course`,`exam`)
+    // SELECT student, course, course FROM studentcourses WHERE course='$id'";
+    // $result2 =mysqli_query($con, $ins_exam);
+    if (!$result /*|| !$result2*/) {
         die("Error: " . mysqli_error($con));
     }
     $status = "New Record Inserted Successfully.

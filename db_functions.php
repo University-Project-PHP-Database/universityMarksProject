@@ -236,7 +236,7 @@ function view_students($id) {
 
     function get_status($id){
         $connect = student_database_connection();
-        $query = "SELECT exam FROM markregister WHERE student=$id";
+        $query = "SELECT exam FROM student WHERE student=$id";
         $result = $connect->query($query);
         $row = $result->fetch_assoc();
         $xid = $row['exam'];
